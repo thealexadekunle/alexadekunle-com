@@ -1,0 +1,153 @@
+<!-- ==========================================================================
+     CONTACT / BOOKING — intake form, calendar placeholder, direct details
+     ========================================================================== -->
+<section class="pt-32 sm:pt-40 lg:pt-44" aria-labelledby="contact-heading">
+  <div class="mx-auto max-w-8xl px-5 sm:px-8 lg:px-10">
+    <div class="flex flex-wrap items-center gap-3">
+      <span class="pill" data-reveal><span class="pill__pip pill__pip--live" aria-hidden="true"></span>
+        <span data-availability data-state="open">Checking availability</span></span>
+      <span class="pill" data-reveal data-delay="60">Lagos · <span data-clock>WAT</span></span>
+      <span class="pill" data-reveal data-delay="120">Remote worldwide</span>
+    </div>
+
+    <h1 id="contact-heading" class="display mt-10 max-w-[14ch]">
+      <span class="mask"><span>Let us start a</span></span>
+      <span class="mask"><span><em>conversation.</em></span></span>
+    </h1>
+
+    <p class="lede mt-10 max-w-2xl" data-reveal>
+      Not every conversation has to become a project. Some of the best ones did not, and were still worth having.
+    </p>
+  </div>
+</section>
+
+<section class="py-20 sm:py-28">
+  <div class="mx-auto max-w-8xl px-5 sm:px-8 lg:px-10">
+    <div class="grid gap-14 lg:grid-cols-12 lg:gap-10">
+
+      <!-- Routes -->
+      <div class="lg:col-span-5">
+        <h2 class="label">Routing</h2>
+
+        <div class="mt-8">
+          <h3 class="text-2xl font-medium tracking-editorial">Work with me</h3>
+          <p class="prose-body mt-4">
+            Building a business, product, website, software or digital experience? Tell me what you are trying to achieve rather than what you think you need built. Those two are almost never the same sentence, and the gap between them is where the useful part of the conversation happens.
+          </p>
+          <p class="prose-body mt-4">
+            Project enquiries go through <a class="text-ink underline underline-offset-4 hover:text-accent" href="https://vavinix.com" rel="noopener">Vavinix</a>.
+          </p>
+        </div>
+
+        <ul class="mt-12">
+          <li class="drow"><span class="tile__index">01</span><span class="text-xl font-medium tracking-editorial">Partnerships</span><span class="prose-body text-[15px]">A venture, an opportunity, a collaboration worth exploring? Let us talk.</span><span class="label">Direct</span></li>
+          <li class="drow"><span class="tile__index">02</span><span class="text-xl font-medium tracking-editorial">Speaking</span><span class="prose-body text-[15px]">Conferences, events, workshops, podcasts, interviews.</span><span class="label">Worldwide</span></li>
+          <li class="drow"><span class="tile__index">03</span><span class="text-xl font-medium tracking-editorial">Media</span><span class="prose-body text-[15px]">Features, interviews, press, content collaborations.</span><span class="label">Press kit</span></li>
+          <li class="drow"><span class="tile__index">04</span><span class="text-xl font-medium tracking-editorial">General</span><span class="prose-body text-[15px]">If none of those fit, send it anyway. The categories are for routing, not for gatekeeping.</span><span class="label label--accent">Open</span></li>
+          <li class="border-t border-paper-200"></li>
+        </ul>
+
+        <!-- Direct details: plain-text email matters for verification -->
+        <div class="mt-12 border-t border-paper-200 pt-8">
+          <h3 class="label">Direct</h3>
+          <ul class="mt-6 space-y-4 text-[15px]">
+            <li class="flex flex-wrap items-baseline justify-between gap-4"><span class="label">General</span><a class="hover:text-accent" href="mailto:hello@alexadekunle.com">hello@alexadekunle.com</a></li>
+            <li class="flex flex-wrap items-baseline justify-between gap-4"><span class="label">Speaking</span><a class="hover:text-accent" href="mailto:speaking@alexadekunle.com">speaking@alexadekunle.com</a></li>
+            <li class="flex flex-wrap items-baseline justify-between gap-4"><span class="label">Press</span><a class="hover:text-accent" href="mailto:press@alexadekunle.com">press@alexadekunle.com</a></li>
+            <li class="flex flex-wrap items-baseline justify-between gap-4"><span class="label">Projects</span><a class="hover:text-accent" href="https://vavinix.com" rel="noopener">vavinix.com ↗</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Form + booking -->
+      <div class="lg:col-span-6 lg:col-start-7">
+        <form data-form class="border border-paper-200 bg-paper p-6 sm:p-9" novalidate>
+          <h2 class="label">Tell me what you are building</h2>
+          <p class="prose-body mt-4 text-[15px]">
+            What are you working on? What problem are you actually trying to solve? What would success look like if it went well?
+          </p>
+
+          <div class="mt-9 grid gap-6 sm:grid-cols-2">
+            <div class="field">
+              <label class="label" for="name">Name</label>
+              <input class="field__input" id="name" name="name" type="text" autocomplete="name" required placeholder="Your name" />
+            </div>
+            <div class="field">
+              <label class="label" for="email">Email</label>
+              <input class="field__input" id="email" name="email" type="email" autocomplete="email" required placeholder="you@company.com" />
+            </div>
+          </div>
+
+          <div class="mt-6 grid gap-6 sm:grid-cols-2">
+            <div class="field">
+              <label class="label" for="company">Company</label>
+              <input class="field__input" id="company" name="company" type="text" autocomplete="organization" placeholder="Optional" />
+            </div>
+            <div class="field">
+              <label class="label" for="topic">Enquiry type</label>
+              <select class="field__input" id="topic" name="topic">
+                <option value="project">A project or product</option>
+                <option value="advisory">Strategy or advisory</option>
+                <option value="partnership">Partnership or venture</option>
+                <option value="speaking">Speaking</option>
+                <option value="media">Media or press</option>
+                <option value="general">Something else</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field mt-6">
+            <label class="label" for="message">The brief</label>
+            <textarea class="field__input min-h-[8.5rem] resize-y" id="message" name="message" rows="5" required placeholder="What are you building?"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--fill mt-9 w-full justify-center sm:w-auto"><span>Send it over</span></button>
+
+          <p data-form-status role="status" aria-live="polite" class="mt-5 text-sm font-medium text-ink"></p>
+          <p class="mt-4 text-xs leading-relaxed text-zinc-500">
+            I read everything that comes through here, and I will come back to you.
+          </p>
+        </form>
+
+        <!-- Calendar embed placeholder -->
+        <div class="mt-8 border border-dashed border-paper-200 bg-paper-50 p-6 sm:p-9" data-reveal>
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <h2 class="label">Or book the conversation</h2>
+            <span class="label label--accent">Embed slot</span>
+          </div>
+          <p class="prose-body mt-4 text-[15px]">
+            Thirty minutes, no deck. Drop your scheduling embed here — Cal.com, Calendly or SavvyCal — and it inherits this frame.
+          </p>
+          <div class="mt-6 grid h-56 place-items-center border border-paper-200 bg-paper text-center">
+            <div>
+              <p class="label">Calendar embed</p>
+              <p class="mt-2 text-sm text-zinc-500">&lt;!-- replace with scheduling iframe --&gt;</p>
+            </div>
+          </div>
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <span class="tag">30 minutes</span>
+            <span class="tag">Local time <span data-clock>WAT</span></span>
+            <span class="tag">Zoom or Meet</span>
+            <span class="pill"><span class="pill__pip pill__pip--live" aria-hidden="true"></span>
+              <span data-availability data-state="open">Checking availability</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Closing -->
+<section class="border-t border-paper-200 bg-ink py-24 text-paper sm:py-32">
+  <div class="mx-auto max-w-8xl px-5 sm:px-8 lg:px-10">
+    <p class="display max-w-[13ch] text-paper" data-reveal>Tell me what you are building.</p>
+    <p class="lede mt-10 max-w-xl" style="color:#E4E4E7" data-reveal>
+      Let us see where the conversation goes.
+    </p>
+    <div class="mt-14 border-t border-white/15 pt-8">
+      <p class="text-xl font-medium tracking-editorial">Alex Adekunle</p>
+      <p class="label mt-3" style="color:#A1A1AA">Technology · Business · Ventures · Ideas</p>
+      <p class="label mt-2" style="color:#A1A1AA">Think better. Build better. Lead better.</p>
+    </div>
+  </div>
+</section>
