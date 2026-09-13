@@ -102,6 +102,23 @@ Motion: masked headline reveal, `data-reveal` fade-up with `data-delay`, `data-p
 7. **Pretty URLs.** Canonicals use `/about`, `/ventures/vavinix` etc. Map `about.html → /about` at the host (Netlify `_redirects`, Vercel `cleanUrls`, or nginx `try_files`) before indexing.
 7. **Confirm the domain** and pick https + www or non-www, 301 everything else.
 
+## Imagery
+
+Every image is AI-generated (Higgsfield, `gpt_image_2_5`) as a matched editorial set: white light, minimal composition, neutral palette, no people.
+
+- Sources: `assets/img/_src/*.png` — **gitignored**, regenerate rather than commit.
+- Served: `assets/img/<name>-<width>.jpg` at 480 / 768 / 1024 / native, plus `<name>.jpg` as the default `src`.
+- `assets/img/manifest.json` records the widths and true intrinsic dimensions; `build.py` reads it to write `srcset`, `sizes`, `width` and `height`, so nothing shifts while loading. 6.5MB total across 53 files.
+
+**Two deliberate constraints:**
+
+1. **No synthetic portraits of Alex.** A generated face published as the real founder is fabrication, and it would undercut the entity strategy this whole site is built on — third parties corroborating one consistent identity. Portrait slots use still lifes and spaces instead, waiting on real photography.
+2. **Alt text describes what is in frame**, not what the reader might assume. No image claims to document a moment that happened, and the footer carries a site-wide disclosure. Replace the images and that line goes with them.
+
+This costs the SEO spec's `Alex Adekunle, founder of Vavinix, [context]` alt pattern, which was a real image-search and knowledge-panel signal. Restore it the moment real photographs exist.
+
+To regenerate, prompts live in the conversation that produced them; the pipeline is `sips` in a short Python block — see git history for the exact call.
+
 ## Responsive
 
 Verified in headless Chrome across 320 / 375 / 430 / 768 / 1024 / 1280 / 1536 / 2560 — 128 renders, zero horizontal overflow, zero clipped headlines, no tap target under 40px.

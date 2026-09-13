@@ -15,3 +15,4 @@ next-env.d.ts
 .agents/
 .claude/
 skills-lock.json
+assets/img/_src/

@@ -1,0 +1,115 @@
+{
+ "books": {
+  "widths": [
+   480,
+   768,
+   1024
+  ],
+  "native": 1024,
+  "height": 1024
+ },
+ "civic-facade": {
+  "widths": [
+   480,
+   768,
+   1024,
+   1344
+  ],
+  "native": 1344,
+  "height": 752
+ },
+ "gallery-wall": {
+  "widths": [
+   480,
+   768,
+   896
+  ],
+  "native": 896,
+  "height": 1120
+ },
+ "mathematics-notebook": {
+  "widths": [
+   480,
+   768,
+   896
+  ],
+  "native": 896,
+  "height": 1120
+ },
+ "meeting-still-life": {
+  "widths": [
+   480,
+   768,
+   896
+  ],
+  "native": 896,
+  "height": 1120
+ },
+ "room-for-focus": {
+  "widths": [
+   480,
+   768,
+   1024,
+   1344
+  ],
+  "native": 1344,
+  "height": 752
+ },
+ "sky-edge": {
+  "widths": [
+   480,
+   768,
+   896
+  ],
+  "native": 896,
+  "height": 1120
+ },
+ "studio-daylight": {
+  "widths": [
+   480,
+   768,
+   1024,
+   1344
+  ],
+  "native": 1344,
+  "height": 752
+ },
+ "style-flatlay": {
+  "widths": [
+   480,
+   768,
+   1024
+  ],
+  "native": 1024,
+  "height": 1024
+ },
+ "travel-stair": {
+  "widths": [
+   480,
+   768,
+   1024
+  ],
+  "native": 1024,
+  "height": 1024
+ },
+ "workshop-space": {
+  "widths": [
+   480,
+   768,
+   1024,
+   1344
+  ],
+  "native": 1344,
+  "height": 752
+ },
+ "workspace-first-light": {
+  "widths": [
+   480,
+   768,
+   1024,
+   1344
+  ],
+  "native": 1344,
+  "height": 752
+ }
+}

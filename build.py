@@ -323,24 +323,46 @@ PAGES = [
 SRCSET_WIDTHS = [480, 768, 1024, 1400, 1900]
 DEFAULT_SIZES = "(max-width: 640px) 100vw, (max-width: 1024px) 92vw, 60vw"
 
+# Widths actually rendered for each local image, written by the image pipeline.
+_manifest_path = ROOT / "assets" / "img" / "manifest.json"
+IMG_MANIFEST = json.loads(_manifest_path.read_text()) if _manifest_path.exists() else {}
+
 
 def add_srcset(html):
+    """Give every image a width-descriptor srcset.
+
+    Local images are served from assets/img in the widths the pipeline built,
+    and carry their true intrinsic dimensions so nothing shifts while loading.
+    Remote Unsplash URLs keep the query-param treatment.
+    """
     def repl(match):
         tag = match.group(0)
         if "srcset=" in tag:
             return tag
         src = re.search(r'src="([^"]+)"', tag).group(1)
-        if "images.unsplash.com" not in src:
+
+        if src.startswith("assets/img/"):
+            name = src.rsplit("/", 1)[-1].rsplit(".", 1)[0]
+            entry = IMG_MANIFEST.get(name)
+            if not entry:
+                return tag
+            srcset = ", ".join("assets/img/%s-%d.jpg %dw" % (name, w, w) for w in entry["widths"])
+            extra = ' srcset="%s" sizes="%s"' % (srcset, DEFAULT_SIZES)
+            # Replace the stale placeholder dimensions with the real ones
+            tag = re.sub(r'width="\d+"', 'width="%d"' % entry["native"], tag)
+            tag = re.sub(r'height="\d+"', 'height="%d"' % entry["height"], tag)
+        elif "images.unsplash.com" in src:
+            base = re.sub(r"([?&])w=\d+", r"\1w=%d", src)
+            if "w=%d" not in base:
+                return tag
+            srcset = ", ".join("%s %dw" % (base % w, w) for w in SRCSET_WIDTHS)
+            extra = ' srcset="%s" sizes="%s"' % (srcset, DEFAULT_SIZES)
+        else:
             return tag
-        base = re.sub(r"([?&])w=\d+", r"\1w=%d", src)
-        if "w=%d" not in base:
-            return tag
-        srcset = ", ".join("%s %dw" % (base % w, w) for w in SRCSET_WIDTHS)
-        extra = ' srcset="%s" sizes="%s"' % (srcset, DEFAULT_SIZES)
+
         return tag[:-2] + extra + " />" if tag.rstrip().endswith("/>") else tag[:-1] + extra + ">"
 
     return re.sub(r"<img\b[^>]*>", repl, html)
-
 
 
 # ---------------------------------------------------------------------------
