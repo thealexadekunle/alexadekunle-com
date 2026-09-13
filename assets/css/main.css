@@ -123,8 +123,8 @@ body > header, body > main, body > footer, body > .drawer { position: relative; 
 
 /* Supplied wordmark. Height-locked so the header rhythm never depends on the
    SVG's own proportions. */
-.brand__logo { height: 26px; width: auto; display: block; }
-@media (max-width: 420px) { .brand__logo { height: 22px; } }
+.brand__logo { height: 34px; width: auto; display: block; }
+@media (max-width: 420px) { .brand__logo { height: 28px; } }
 .foot-logo { height: 42px; width: auto; display: block; }
 
 /* Venture marks sit on their supplied cream plate; the frame crops it clean */
