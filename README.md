@@ -104,7 +104,13 @@ Motion: masked headline reveal, `data-reveal` fade-up with `data-delay`, `data-p
 
 ## Imagery
 
-Every image is AI-generated (Higgsfield, `gpt_image_2_5`) as a matched editorial set: white light, minimal composition, neutral palette, no people.
+Two kinds of image, handled differently.
+
+**Real photography** — `alex-adekunle-portrait`, `-agbada`, `-studio`. Supplied studio shots, used for the home hero, the About column and three gallery slots. These carry the document's alt pattern, `Alex Adekunle, founder of Vavinix, [context]`, and the Person schema `image` and Open Graph card both point at `alex-adekunle-portrait.jpg`.
+
+**Brand marks** — `logo.svg` (header and footer wordmark), `favicon-eagle.png`, and three venture marks trimmed from their supplied cream plates to transparent PNG (`vavinix-venture`, `aspire-trybe-venture`, `thereceipt-venture`). Originals kept in `_src/`. The Aspire Trybe file arrived named `aspiretrybex-` and was renamed: the old brand name now appears exactly once in the build, as schema `alternateName`, which is what the document specifies. OneArtPiece has no mark yet — its pages use scene imagery.
+
+**Generated scenes** — the remaining twelve, Higgsfield `gpt_image_2_5`, one matched set: white light, minimal composition, neutral palette, no people.
 
 - Sources: `assets/img/_src/*.png` — **gitignored**, regenerate rather than commit.
 - Served: `assets/img/<name>-<width>.jpg` at 480 / 768 / 1024 / native, plus `<name>.jpg` as the default `src`.
@@ -112,10 +118,8 @@ Every image is AI-generated (Higgsfield, `gpt_image_2_5`) as a matched editorial
 
 **Two deliberate constraints:**
 
-1. **No synthetic portraits of Alex.** A generated face published as the real founder is fabrication, and it would undercut the entity strategy this whole site is built on — third parties corroborating one consistent identity. Portrait slots use still lifes and spaces instead, waiting on real photography.
-2. **Alt text describes what is in frame**, not what the reader might assume. No image claims to document a moment that happened, and the footer carries a site-wide disclosure. Replace the images and that line goes with them.
-
-This costs the SEO spec's `Alex Adekunle, founder of Vavinix, [context]` alt pattern, which was a real image-search and knowledge-panel signal. Restore it the moment real photographs exist.
+1. **No synthetic portraits of Alex.** Every image of him is a real photograph. A generated face published as the real founder would be fabrication, and it would undercut the entity strategy this site is built on.
+2. **Alt text describes what is in frame.** Photographs name him; generated scenes describe the room. The footer says which is which: *"Portraits are photographs. Interiors and still lifes are AI-generated stand-ins, pending a shoot."* When the full shoot lands, replace the scenes and delete that line.
 
 To regenerate, prompts live in the conversation that produced them; the pipeline is `sips` in a short Python block — see git history for the exact call.
 

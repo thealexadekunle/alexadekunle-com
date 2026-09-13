@@ -120,6 +120,25 @@ body > header, body > main, body > footer, body > .drawer { position: relative; 
 }
 .brand:hover .brand__mark { background: var(--ink); color: var(--paper); transform: rotate(-90deg); }
 .brand__name { font-size: 15px; font-weight: 500; letter-spacing: -.03em; }
+
+/* Supplied wordmark. Height-locked so the header rhythm never depends on the
+   SVG's own proportions. */
+.brand__logo { height: 26px; width: auto; display: block; }
+@media (max-width: 420px) { .brand__logo { height: 22px; } }
+.foot-logo { height: 42px; width: auto; display: block; }
+
+/* Venture marks sit on their supplied cream plate; the frame crops it clean */
+.venture-mark {
+  display: block;
+  /* Marks vary from wide wordmarks to stacked lockups, so cap both axes and
+     let each one find its own size rather than forcing a common height. */
+  width: auto; height: auto;
+  max-width: 200px; max-height: 78px;
+  object-fit: contain; object-position: left center;
+  background: transparent;
+}
+.venture-mark--sm { max-width: 168px; max-height: 56px; margin-bottom: 12px; }
+@media (max-width: 640px) { .venture-mark { max-height: 60px; } .venture-mark--sm { max-height: 46px; } }
 @media (max-width: 360px) { .brand__name { font-size: 13px; } }
 
 .nav-link {

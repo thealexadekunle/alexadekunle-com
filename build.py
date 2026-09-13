@@ -40,7 +40,7 @@ PERSON = {
     "nationality": {"@type": "Country", "name": "Nigeria"},
     "url": f"{SITE}/",
     "mainEntityOfPage": f"{SITE}/about",
-    "image": f"{SITE}/images/alex-adekunle-portrait.jpg",
+    "image": f"{SITE}/assets/img/alex-adekunle-portrait.jpg",
     "description": ("Nigerian technology entrepreneur, web developer and business strategist. "
                     "Founder of Vavinix. Building Aspire Trybe, OneArtPiece and The Receipt."),
     "jobTitle": ["Founder", "Technology Entrepreneur", "Web Developer", "Business Strategist"],
@@ -372,15 +372,16 @@ def add_srcset(html):
 #   data-tilt     interactive cards tilt and light their border on pointer move
 #   data-magnetic status pills pull toward the cursor
 # ---------------------------------------------------------------------------
+# Attributes may appear in any order, so do not assume class comes first.
 SPLIT_TAGS = re.compile(
-    r'<(h2|h3|p)\s+class="([^"]*(?:display--sm|lede)[^"]*)"([^>]*)>([^<]+)</\1>')
+    r'<(h2|h3)\s+([^>]*?)class="([^"]*display--sm[^"]*)"([^>]*)>([^<]+)</\1>')
 
 
 def _split_tag(match):
-    tag, classes, rest, inner = match.groups()
-    if "data-split" in rest:
+    tag, before, classes, after, inner = match.groups()
+    if "data-split" in before or "data-split" in after:
         return match.group(0)
-    return '<%s class="%s"%s data-split>%s</%s>' % (tag, classes, rest, inner, tag)
+    return '<%s %sclass="%s"%s data-split>%s</%s>' % (tag, before, classes, after, inner, tag)
 
 
 def add_motion(html):

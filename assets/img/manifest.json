@@ -111,5 +111,32 @@
   ],
   "native": 1344,
   "height": 752
+ },
+ "alex-adekunle-portrait": {
+  "widths": [
+   480,
+   768,
+   901
+  ],
+  "native": 901,
+  "height": 1200
+ },
+ "alex-adekunle-agbada": {
+  "widths": [
+   480,
+   768,
+   895
+  ],
+  "native": 895,
+  "height": 1200
+ },
+ "alex-adekunle-studio": {
+  "widths": [
+   480,
+   768,
+   853
+  ],
+  "native": 853,
+  "height": 1200
  }
 }
