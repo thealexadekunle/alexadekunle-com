@@ -108,7 +108,9 @@ Two kinds of image, handled differently.
 
 **Real photography** — `alex-adekunle-portrait`, `-agbada`, `-studio`. Supplied studio shots, used for the home hero, the About column and three gallery slots. These carry the document's alt pattern, `Alex Adekunle, founder of Vavinix, [context]`, and the Person schema `image` and Open Graph card both point at `alex-adekunle-portrait.jpg`.
 
-**Brand marks** — `logo.svg` (header and footer wordmark), `favicon-eagle.png`, and three venture marks trimmed from their supplied cream plates to transparent PNG (`vavinix-venture`, `aspire-trybe-venture`, `thereceipt-venture`). Originals kept in `_src/`. The Aspire Trybe file arrived named `aspiretrybex-` and was renamed: the old brand name now appears exactly once in the build, as schema `alternateName`, which is what the document specifies. OneArtPiece has no mark yet — its pages use scene imagery.
+**Brand marks** — `logo.svg` (header and footer wordmark), `favicon-eagle.png`, and three venture marks trimmed from their supplied cream plates to transparent PNG (`vavinix-venture`, `aspire-trybe-venture`, `thereceipt-venture`). Originals kept in `_src/`. The Aspire Trybe file arrived named `aspiretrybex-` and was renamed: the old brand name now appears exactly once in the build, as schema `alternateName`, which is what the document specifies. OneArtPiece has no mark yet: its card uses a set wordmark (`.logo-type`) as the lockup. Supply a real logo and swap the `<span>` for an `<img>` in `src/pages/index.html` and `src/pages/ventures.html`.
+
+Venture cards on the home bento and the ventures hub are logo plates (`.logo-plate`), not photography — a paper-50 field, hairline border, mark contained and centred, accent border on hover. `build.py` skips these when wrapping images for parallax, so a centred mark never drifts off its plate. Venture child pages keep scene photography with the mark above the hero.
 
 **Generated scenes** — the remaining twelve, Higgsfield `gpt_image_2_5`, one matched set: white light, minimal composition, neutral palette, no people.
 

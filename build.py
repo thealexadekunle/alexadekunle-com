@@ -398,6 +398,8 @@ def add_motion(html):
 
     def wrap(match):
         open_div, gap_a, img, gap_b, close = match.groups()
+        if "logo-plate" in open_div:
+            return match.group(0)   # a mark should sit still, not drift
         speed = speeds[counter["i"] % len(speeds)]
         counter["i"] += 1
         return ('%s%s<div class="frame__inner" data-parallax="%s">%s</div>%s%s'

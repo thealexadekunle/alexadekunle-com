@@ -572,3 +572,35 @@ html.no-js .veil, .veil.is-done { display: none; }
 table th[scope="row"] { font-weight: 500; }
 table tbody tr { transition: background-color .35s ease; }
 table tbody tr:hover { background: var(--paper-50); }
+
+
+/* --------------------------------------------------------------------------
+   Logo plates — venture cards led by the brand mark rather than a scene
+   -------------------------------------------------------------------------- */
+.logo-plate {
+  display: grid; place-items: center;
+  padding: clamp(24px, 5vw, 56px);
+  background: var(--paper-50);
+  border: 1px solid var(--line-strong);
+  transition: background-color .5s var(--ease), border-color .5s var(--ease);
+}
+.logo-plate img {
+  width: auto; height: auto;
+  max-width: min(72%, 320px); max-height: 58%;
+  object-fit: contain;
+  transition: transform .7s var(--ease);
+}
+.group:hover .logo-plate { background: var(--paper); border-color: var(--accent); }
+.group:hover .logo-plate img { transform: scale(1.04); }
+
+/* Stand-in wordmark for a venture with no supplied logo yet */
+.logo-type {
+  font-size: clamp(1.35rem, 3.4vw, 2.4rem);
+  font-weight: 300; letter-spacing: -.03em; color: var(--ink);
+  text-align: center; line-height: 1.1;
+}
+.logo-type small {
+  display: block; margin-top: 12px;
+  font-size: 10px; font-weight: 500; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--zinc-400);
+}
