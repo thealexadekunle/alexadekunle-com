@@ -156,7 +156,9 @@ Verified in headless Chrome across 320 / 375 / 430 / 768 / 1024 / 1280 / 1536 / 
 - Display type is fluid (`clamp(2.1rem, 10.2vw, 9rem)`); clip masks carry descender padding so nothing is cut at any size.
 - Card grids pair at `sm`, go editorial at `lg`. Definition rows get a dedicated 640–1023px layout.
 - Buttons go full width below 480px; form inputs are 16px so iOS does not zoom on focus.
-- Mobile drawer scrolls, locks the body, respects `env(safe-area-inset-bottom)`, and has a landscape-phone layout.
+- Mobile drawer scrolls, locks the body, respects `env(safe-area-inset-bottom)`, and has a landscape-phone layout. It stays `position: fixed` — see the note below before touching the grid-rules selector.
+
+> **Do not add `.drawer` back to the `body > …` content-layering rule.** `body > .drawer` (specificity 0,1,1) outranks `.drawer { position: fixed }` (0,1,0), which demotes the drawer to `relative` and pins it to the top of the *document*. At scroll 0 that looks identical to fixed; scrolled down, the menu opens off-screen and the site appears to have a dead hamburger button. The rule now covers `header`, `main` and `footer` only, and `.drawer` carries `position: fixed !important` as a second guard. Regression-tested at 4 device sizes x 7 pages x 4 scroll depths (112 checks).
 - Architectural column rules thin from 5 to 3 to 2 and drop out entirely below 400px.
 - `@media (hover: none)` strips hover-only affordances; `prefers-reduced-motion` disables all of it.
 

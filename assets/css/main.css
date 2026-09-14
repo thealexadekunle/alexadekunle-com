@@ -64,7 +64,10 @@ h1, h2, h3, p, a, li, dd, dt, figcaption, summary { overflow-wrap: break-word; }
 @media (max-width: 640px) { .grid-rules { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 400px) { .grid-rules { display: none; } }
 
-body > header, body > main, body > footer, body > .drawer { position: relative; z-index: 1; }
+/* Lift page content above the grid rules. The drawer is deliberately excluded:
+   it must stay position: fixed, and `body > .drawer` would outrank the .drawer
+   rule on specificity and pin it to the top of the document instead. */
+body > header, body > main, body > footer { position: relative; z-index: 1; }
 
 /* --------------------------------------------------------------------------
    Type primitives
@@ -169,7 +172,8 @@ body > header, body > main, body > footer, body > .drawer { position: relative; 
 
 /* Mobile drawer */
 .drawer {
-  position: fixed; inset: 0; z-index: 55;
+  position: fixed !important;   /* never let a page-level selector demote this */
+  inset: 0; z-index: 55;
   padding-top: 72px;
   background: var(--paper);
   animation: drawerIn .45s var(--ease);
