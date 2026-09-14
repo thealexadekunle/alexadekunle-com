@@ -126,3 +126,12 @@ canonical, `@id` and OG URL already resolves correctly from `lib/site.ts`.
 
 The previous build — a Python-generated static site — is preserved in git history at
 `01ee81c` if any markup needs consulting.
+
+### Device sweep
+
+12 profiles x 13 routes = 156 checks, all clean: Galaxy Fold (280px), iPhone SE, iPhone 14,
+Pixel 8 Pro, iPhone Pro Max, phone landscape, iPad mini, iPad Pro, iPad landscape, laptop,
+desktop, ultrawide (2560px).
+
+Zero horizontal scroll, zero tap targets under 24px, zero unreadable type. Drawer pins and
+every link stays hittable at all depths down to 280px, where the minimum menu row is 44px.

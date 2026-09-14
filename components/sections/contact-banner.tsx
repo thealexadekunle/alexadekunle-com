@@ -35,7 +35,7 @@ export function ContactBanner() {
             {ROUTES.map((route) => (
               <li
                 key={route.label}
-                className="flex items-baseline justify-between gap-6 border-t border-white/15 py-4 last:border-b"
+                className="contact-route flex items-baseline justify-between gap-6 border-t border-white/15 py-4 last:border-b"
               >
                 <span className="label text-zinc-400">{route.label}</span>
                 {route.href.startsWith("http") || route.href.startsWith("mailto:") ? (

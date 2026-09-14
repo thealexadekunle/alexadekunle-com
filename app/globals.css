@@ -75,9 +75,11 @@
 @layer components {
   /* ---- Type primitives ------------------------------------------------- */
   .label {
-    @apply font-mono text-[10px] font-medium uppercase tracking-label text-zinc-500;
+    @apply font-mono text-[11px] font-medium uppercase tracking-label text-zinc-500;
   }
   .label-ink { @apply text-ink; }
+  /* For labels carrying a phrase rather than a marker */
+  .label-lg { @apply font-mono text-xs font-medium uppercase tracking-[0.16em] text-zinc-500; }
   .label-accent { @apply text-accent; }
 
   .display {
@@ -257,18 +259,26 @@
   .logo-plate {
     display: grid;
     place-items: center;
-    padding: clamp(24px, 5vw, 56px);
+    /* Tighter padding gives the mark more of the plate to occupy */
+    padding: clamp(16px, 3vw, 36px);
     background: var(--paper-50);
     border: 1px solid var(--line-strong);
     transition: background-color 0.5s var(--ease), border-color 0.5s var(--ease);
   }
   .logo-plate img {
-    width: auto;
+    /* width drives the size: max-width alone only caps an image, it never
+       scales one up past its intrinsic pixels, which left every mark small. */
+    width: min(78%, 420px);
     height: auto;
-    max-width: min(72%, 320px);
-    max-height: 58%;
+    max-height: 72%;
     object-fit: contain;
     transition: transform 0.7s var(--ease);
+  }
+  /* Stacked lockups are taller than they are wide, so height leads for them */
+  .logo-plate img[src*="aspire-trybe"] { width: min(52%, 260px); }
+  @media (max-width: 640px) {
+    .logo-plate img { width: min(72%, 300px); }
+    .logo-plate img[src*="aspire-trybe"] { width: min(46%, 190px); }
   }
   .group:hover .logo-plate { background: var(--paper); border-color: var(--accent); }
   .group:hover .logo-plate img { transform: scale(1.04); }
@@ -365,9 +375,45 @@
   @media (max-width: 640px) { .marquee-track { gap: 20px; } }
 
   /* ---- Footer links ----------------------------------------------------- */
-  .foot-link { color: var(--zinc-500); transition: color 0.25s ease, padding-left 0.3s var(--ease); }
+  .foot-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--zinc-500);
+    transition: color 0.25s ease, padding-left 0.3s var(--ease);
+  }
   .foot-link:hover { color: var(--ink); padding-left: 5px; }
-  @media (hover: none) { .foot-link:hover { padding-left: 0; } }
+  @media (hover: none) {
+    .foot-link:hover { padding-left: 0; }
+    /* Thumb-sized rows on touch; the list spacing absorbs the extra height */
+    .foot-link { min-height: 40px; }
+  }
+
+}
+
+/* ==========================================================================
+   Touch ergonomics — deliberately unlayered.
+   Rules inside @layer components are purge-scanned; a class selector Tailwind
+   judges unused is emptied rather than dropped, which breaks the parse.
+   ========================================================================== */
+@media (pointer: coarse) {
+  /* Links inside running text: grow the hit area with padding and pull the
+     layout back with a matching negative margin, so the line box is untouched.
+     inline-flex here would break wrapping mid-sentence. */
+  p a,
+  li a:not(.foot-link):not(.btn):not(.chip),
+  figcaption a,
+  dd a,
+  nav.label a {
+    padding-block: 9px;
+    margin-block: -9px;
+  }
+
+  /* Block-level routing rows can take a real minimum height */
+  .contact-route a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+  }
 }
 
 @layer utilities {

@@ -100,7 +100,7 @@ export default function ContactPage() {
                   { label: "Press", value: SITE.pressEmail, href: `mailto:${SITE.pressEmail}` },
                   { label: "Projects", value: "vavinix.com ↗", href: "https://vavinix.com" },
                 ].map((row) => (
-                  <li key={row.label} className="flex flex-wrap items-baseline justify-between gap-4">
+                  <li key={row.label} className="contact-route flex flex-wrap items-baseline justify-between gap-4">
                     <span className="label">{row.label}</span>
                     <a className="transition-colors hover:text-accent" href={row.href} rel="noopener">
                       {row.value}
@@ -147,8 +147,8 @@ export default function ContactPage() {
         </Reveal>
         <div className="mt-14 border-t border-white/15 pt-8">
           <p className="text-xl font-medium tracking-editorial">{SITE.name}</p>
-          <p className="label mt-3 text-zinc-400">Technology · Business · Ventures · Ideas</p>
-          <p className="label mt-2 text-zinc-400">{SITE.tagline}</p>
+          <p className="label-lg mt-3 text-zinc-400">Technology · Business · Ventures · Ideas</p>
+          <p className="label-lg mt-2 text-zinc-400">{SITE.tagline}</p>
         </div>
         <p className="mt-10">
           <Link className="link-arrow !border-white/30 text-paper" href="/">
