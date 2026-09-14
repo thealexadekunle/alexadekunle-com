@@ -138,5 +138,14 @@
   ],
   "native": 853,
   "height": 1200
+ },
+ "eagle-perspective": {
+  "widths": [
+   480,
+   768,
+   1024
+  ],
+  "native": 1024,
+  "height": 1536
  }
 }

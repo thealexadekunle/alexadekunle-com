@@ -5,7 +5,7 @@ import { ParallaxFrame } from "@/components/motion/parallax-frame";
 type AspectFrameProps = {
   readonly src: string;
   readonly alt: string;
-  readonly ratio?: "16/10" | "16/9" | "4/5" | "3/4" | "1/1";
+  readonly ratio?: "16/10" | "16/9" | "4/5" | "3/4" | "2/3" | "1/1";
   readonly sizes?: string;
   readonly priority?: boolean;
   readonly muted?: boolean;
@@ -19,6 +19,7 @@ const RATIOS = {
   "16/9": "aspect-[16/9]",
   "4/5": "aspect-[4/5]",
   "3/4": "aspect-[3/4]",
+  "2/3": "aspect-[2/3]",
   "1/1": "aspect-square",
 } as const;
 

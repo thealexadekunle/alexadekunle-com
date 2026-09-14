@@ -66,10 +66,11 @@ export default function EaglePage() {
             <TextReveal id="why-eagle" className="display-sm mt-6" lines={["Perspective."]} />
             <Reveal as="figure" className="mt-12">
               <AspectFrame
-                src="/img/sky-edge.jpg"
-                alt="Looking up the clean edge of a white concrete building into open sky"
-              ratio="4/5"
-                parallax={0.05}
+                src="/img/eagle-perspective.jpg"
+                alt="The Eagle, illustrated: a bald eagle at a desk with a notebook reading Think Better, Build Better, Lead Better, beside books on branding, technology, business, leadership and wealth"
+                ratio="2/3"
+                muted={false}
+                parallax={0.04}
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />
             </Reveal>
