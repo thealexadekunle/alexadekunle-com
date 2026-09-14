@@ -96,10 +96,9 @@ export function Engagements() {
                 </span>
               ))}
             </div>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <ButtonLink href="/work" variant="ghost">See selected work</ButtonLink>
+            <div className="mt-10">
               <ButtonLink href="https://vavinix.com" magnetic>
-                The full portfolio at vavinix.com ↗
+                See the portfolio at vavinix.com ↗
               </ButtonLink>
             </div>
           </Reveal>

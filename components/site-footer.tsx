@@ -42,9 +42,15 @@ export function SiteFooter() {
             <ul className="mt-6 space-y-3 text-[15px]">
               {FOOTER_EXPLORE.map((item) => (
                 <li key={item.href}>
-                  <Link className="foot-link" href={item.href}>
-                    {item.label}
-                  </Link>
+                  {item.external ? (
+                    <a className="foot-link" href={item.href} rel="noopener">
+                      {item.label} ↗
+                    </a>
+                  ) : (
+                    <Link className="foot-link" href={item.href}>
+                      {item.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

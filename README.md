@@ -21,8 +21,6 @@ app/                 routes — one folder per page, Server Components by defaul
   page.tsx           home
   [route]/page.tsx   14 further routes
   ventures/[slug]/   4 venture pages via generateStaticParams
-  work/              filterable archive
-  work/[slug]/       6 case studies via generateStaticParams
   robots.ts          AI crawlers deliberately allowed
   sitemap.ts         indexable URLs only
 components/
@@ -106,16 +104,11 @@ standing constraints:
 1. **No synthetic portraits.** Every image of Alex is a real photograph. Interiors and
    still lifes are AI-generated stand-ins; the footer says so, and that line goes when the
    shoot lands.
-2. **Work lives here, canonically elsewhere.** `/work` and `/work/[slug]` are built and
-   fully functional, but they carry `noindex, follow` and canonicals pointing at
-   `vavinix.com/work/...`. The brand document is explicit that client-name queries should
-   land where the commercial intent does, and two domains competing for "who designed X"
-   splits the signal. Flip `robots` and `alternates` in the two route files to make them
-   native to this domain.
-3. **No invented metrics.** Case-study figures render as `—` with a pending note until a
-   number can be verified against analytics the client can see. The ten further project
-   names from the original draft are excluded: several circulate as template builds, and a
-   client who recognises one discounts everything beside it.
+2. **No portfolio here.** Client work and case studies live on vavinix.com, and every
+   portfolio intent on this site routes outward: the home client-work band, the Vavinix
+   venture page, the footer column and the footer legal line. Two domains competing for
+   "who designed X" splits the signal, and the weaker domain usually wins the wrong one.
+3. **No invented metrics.** Nothing on the site states a number that cannot be verified.
 
 Thin pages (`/ideas`, `/journal`, `/media`, `/resources`) ship `noindex, follow` and stay
 out of the sitemap until each holds three real items.
