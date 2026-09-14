@@ -88,7 +88,9 @@ export function Hero() {
             />
             <figcaption className="mt-4 flex items-center justify-between gap-4 text-[11px] text-zinc-500">
               <span>Alex Akinyele Adekunle — Lagos, 2026</span>
-              <span className="label">Fig. 01</span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-zinc-400">
+                Fig. 01
+              </span>
             </figcaption>
           </Reveal>
         </div>

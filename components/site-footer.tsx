@@ -101,9 +101,6 @@ export function SiteFooter() {
               vavinix.com
             </a>
           </p>
-          <p className="max-w-md">
-            Portraits are photographs. Interiors and still lifes are AI-generated stand-ins, pending a shoot.
-          </p>
           <p>© {year} {SITE.legalName}. All rights reserved.</p>
         </div>
       </div>
