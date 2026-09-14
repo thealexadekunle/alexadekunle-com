@@ -1,173 +1,111 @@
-# Alex Adekunle — Personal Brand Site
+# alexadekunle.com
 
-Sixteen-page editorial prototype. Light mode only. Static HTML + Tailwind + vanilla JS, assembled by a small Python builder so the nav, footer and `<head>` exist in exactly one place.
+Personal brand site for Alex Adekunle — technology entrepreneur, founder of Vavinix.
+Next.js App Router, TypeScript, Tailwind, statically exported to GitHub Pages.
 
 ## Run
 
 ```bash
-python3 -m http.server 4321     # http://localhost:4321
+npm install
+npm run dev          # http://localhost:3000
+npm run typecheck    # tsc --noEmit, strict
+npm run build        # static export to out/
+npm run deploy       # build + copy to docs/ (what Pages serves)
 ```
 
-## Build
+## Architecture
 
-Pages are generated, not hand-maintained.
-
-```bash
-python3 build.py                # rewrites all 16 HTML files in the project root
+```
+app/                 routes — one folder per page, Server Components by default
+  layout.tsx         shell: fonts, metadata, grid rules, header, footer, JSON-LD
+  page.tsx           home
+  [route]/page.tsx   14 further routes
+  ventures/[slug]/   4 venture pages via generateStaticParams
+  robots.ts          AI crawlers deliberately allowed
+  sitemap.ts         indexable URLs only
+components/
+  ui/                primitives: Container, Section, ButtonLink, MediaFrame, Marquee, forms
+  sections/          page sections: Hero, VenturesGrid, Philosophy, Engagements, ContactBanner…
+  motion/            Reveal, MaskedLines, ParallaxFrame, Cursor
+  site-header.tsx    floating glass header + mobile drawer
+  site-footer.tsx    kinetic footer
+lib/
+  site.ts            domain, handles, bios — one place to change the domain
+  schema.ts          Person / WebSite / Organization nodes
+  content/           typed copy: ventures, principles, services, about, editorial
+  motion/            Lenis provider, shared scroll store, media-query hooks
+  image-loader.ts    maps next/image widths onto pre-built variants
+public/img/          photography, generated scenes, logos, manifest
+docs/                build output committed for GitHub Pages
 ```
 
-| Path | Role |
-|---|---|
-| `build.py` | Page register (title, meta, canonical, robots, JSON-LD) + renderer |
-| `src/layout.html` | The shell: head, nav, mobile drawer, footer, script tags |
-| `src/pages/*.html` | One content fragment per page — the only file you edit for copy |
-| `assets/css/main.css` | Design system: tokens, grid rules, components, motion |
-| `assets/js/main.js` | Kinetic system: Lenis, one rAF ticker, split lines, curtain reveals, parallax, magnetic CTAs, tilt, cursor label, veil transitions, filters, scope toggle, availability clock, forms |
-| `robots.txt`, `sitemap.xml` | AI crawlers allowed; indexable URLs only |
-
-Edit a fragment → run `python3 build.py` → reload. Never edit the generated root `.html` files; the next build overwrites them.
-
-## Pages
-
-**Core** — `index` · `about` (About + Lifestyle + milestones + collage) · `services` (tiers, process, fit) · `contact` (intake + booking)
-
-There is no `/work` route, by design: the portfolio and every client-name query belong on vavinix.com. The homepage carries one proof line and a single outbound link instead.
-
-**Ventures** — `ventures` hub + `ventures-vavinix`, `ventures-aspire-trybe`, `ventures-oneartpiece`, `ventures-the-receipt`
-
-**Supporting** — `the-eagle` · `speaking` · `ideas` · `journal` · `media` · `resources` · `gallery`
-
-## Motion system
-
-One `requestAnimationFrame` ticker drives every scroll-linked effect. Nothing reads layout inside the loop — geometry is cached on resize — and every animated property is `transform` or `opacity`. Measured at **60fps with zero long frames** on home, about and gallery during scripted scroll.
-
-| Effect | Hook | Notes |
-|---|---|---|
-| Inertial scroll | Lenis 1.1.20 (jsDelivr) | `lerp 0.09`; anchor links hand off to `lenis.scrollTo`; drawer calls `lenis.stop()` |
-| Curtain reveal | `data-clip` | Paper curtain scales off the media, inner image settles from `scale(1.14)` |
-| Parallax | `data-parallax` on `.frame__inner` | Drift happens inside the frame's overflow, so media lags without overlapping copy. Four alternating speeds |
-| Split lines | `data-split` | JS measures rendered line breaks, wraps each line in a mask, staggers 90ms, re-splits on significant resize |
-| Velocity marquee | `.marquee` | JS transform; speed and direction take a push from scroll velocity, slows on hover |
-| Magnetic CTAs | `data-magnetic` | Spring lerp on the shell, label trails at 32% |
-| Tilt + border light | `data-tilt` | `--mx/--my` feed a masked radial border glow; 2.4 degree perspective tilt |
-| Custom cursor | `[data-cursor]` | Dual element: dot on the true pointer, ring lerped behind it. See below |
-| Page transitions | `data-veil` | Veil wipes down on internal navigation, up on arrival, bfcache-safe |
-
-Hooks are attached in `build.py` (`add_motion`), not hand-written into fragments, so content files stay pure markup. Tilt, magnetic and cursor bind on fine pointers only. `prefers-reduced-motion` disables Lenis, the veil, curtains, line masks, parallax and tilt — verified in a reduced-motion browser context.
-
-**One trap worth knowing:** the reveal first used `clip-path` on the observed element. A clipped element reports a zero intersection rect, so IntersectionObserver could never fire the reveal it was waiting for. The curtain pseudo-element keeps the box measurable.
-
-## Custom cursor
-
-Two elements, driven from one pointermove handler and the shared rAF ticker.
-
-- **Dot** — 6px, pinned to the exact pointer position every frame.
-- **Ring** — 36px, lerped at 0.19, stretched along the axis of travel during fast flicks and pinched across it.
-
-Context is resolved from whatever sits under the pointer, so it works on markup the module has never seen:
-
-| Under the pointer | State | Ring |
-|---|---|---|
-| Nothing interactive | `default` | 36px, hairline |
-| `a`, `button`, `[role=button]`, `label`, `summary`, `.chip` | `link` | 60px, accent border and glow, dot shrinks to 3px |
-| Anything with `data-cursor-target`, or a link wrapping media | `media` | Black capsule with the destination name |
-| `figure`/`.frame` holding an image, not a link | `aura` | 56px, quieter — deliberately *no* label |
-| `input`, `textarea`, `select`, `contenteditable` | `field` | 3×30px caret |
-
-Plus proximity snap (the ring pulls up to 45% toward the centre of any `.btn` or `[data-magnetic]` within 90px, rechecked every 6th frame rather than every frame) and a `scale(0.9)` compression on pointerdown.
-
-**Why `aura` carries no label:** a "VIEW" capsule over an unclickable editorial photograph promises an interaction that does not exist. Non-link media gets a wider ring instead.
-
-**Fallbacks:** the whole element is removed outright when `(hover: hover) and (pointer: fine)` does not match, so touch devices never run the loop. The native cursor is hidden by a `has-cursor` class that JavaScript adds at boot — if the script fails, the page keeps a normal pointer. Measured 57.8fps with one long frame during continuous movement.
-
-## Interactive pieces
-
-- **Services** — `data-scope` toggle swaps every commitment line and the deliverables table timing between project engagement and ongoing retainer, and switches the explanatory paragraph.
-- **Contact** — availability badge and clock run off `Intl.DateTimeFormat` in `Africa/Lagos`, flipping to "Offline — replies next working day" outside 09:00 to 18:00 on weekdays.
-- **Gallery** — category filters with a live count.
+**Server vs client.** Everything renders on the server by default. `"use client"` appears
+only where it must: the header (scroll state), the cursor, the motion primitives, the
+three forms, the gallery filter, the services scope toggle, and the availability clock.
 
 ## Design system
 
+Tokens live in `tailwind.config.ts` and are mirrored as CSS custom properties in
+`app/globals.css`, so pseudo-elements and keyframes reach the same values.
+
 ```
-#FFFFFF  paper      base
-#FAFAFA  paper-50   alternating band
-#F4F4F5  paper-100  media backing
-#DEDEE2  paper-200  section rules, kinetic footer type
-#D4D4D8  line-strong component outlines: cells, rows, fields, tags, chips
-#E4E4E7  line       hairline dividers and the architectural column rules
-#09090B  ink        type, dark CTA panels
-#18181B  ink-soft   body emphasis
-#71717A  zinc-500   secondary copy
-#FFA500  accent     pips, hover fills, active rules, index numbers
+#FFFFFF paper        #FAFAFA paper-50     #F4F4F5 paper-100
+#DEDEE2 paper-200    #E4E4E7 line         #D4D4D8 line-strong
+#0A0A0A ink          #18181B ink-900      #27272A ink-800
+#71717A zinc-500     #A1A1AA zinc-400     #FFA500 accent
 ```
 
-Inter 300–700. `.display` for headlines (`tracking-display`, −0.055em), `.label` for uppercase micro-labels (10px, 0.2em). Five fixed hairline column rules sit behind every page (`.grid-rules`).
+Inter via `next/font/google`. `.display` for headlines (−0.055em), `.label` for uppercase
+micro-labels (10px / 0.2em). Accent is surgical: status pips, hover fills, active rules,
+index numerals, focal CTAs.
 
-Motion: masked headline reveal, `data-reveal` fade-up with `data-delay`, `data-parallax` drift, magnetic CTAs, accent-fill button wipe, cursor label on media tiles (`data-cursor-target`). All of it collapses under `prefers-reduced-motion`.
+## Motion
 
-## SEO
+One `requestAnimationFrame` loop (Lenis) writes to a shared scroll store; every
+scroll-linked effect subscribes rather than attaching its own listener.
 
-- Unique title + meta description on all 16 pages — verified no duplicates.
-- Exactly one `<h1>` per page.
-- One canonical `Person` `@id` (`https://alexadekunle.com/#alex-adekunle`); every other page references it rather than declaring a second Person.
-- Vavinix `Organization` points back at the Person as founder using identical `@id` strings — the closed loop that makes it a verified relationship.
-- Open Graph + Twitter cards on every page, from the same title/description record.
-- `ideas`, `journal`, `media`, `resources` ship `noindex, follow` and stay out of the sitemap until each holds three real items.
-- Alt text follows `Alex Adekunle, founder of Vavinix, [context]` throughout.
+| Effect | Where |
+|---|---|
+| Inertial scroll | `lib/motion/smooth-scroll.tsx` — Lenis, anchors handed off to `scrollTo` |
+| Masked line reveals | `components/motion/masked-lines.tsx` |
+| In-frame parallax | `components/motion/parallax-frame.tsx` — drift inside the frame's overflow |
+| Entrance fades | `components/motion/reveal.tsx` — `useInView`, plays once |
+| Velocity marquee | `components/ui/marquee.tsx` |
+| Adaptive cursor | `components/motion/cursor.tsx` |
 
-## Before shipping
+**Cursor states:** `default` 36px ring · `link` 60px accent · `media` labelled capsule ·
+`aura` 56px over non-clickable editorial media · `field` 3×30 caret. Plus proximity snap
+toward buttons, flick stretch, and a press compression. Removed entirely when
+`(hover: hover) and (pointer: fine)` does not match; the native cursor is only hidden by a
+class JavaScript adds at boot, so a script failure never leaves the page without a pointer.
 
-1. **Compile Tailwind.** The Play CDN ships the JIT compiler and is not for production. Move the `tailwind.config` object from `src/layout.html` into `tailwind.config.js`, build to `assets/css/tailwind.css`, swap the `<script>` for a `<link>`.
-2. **Replace Unsplash placeholders** with real photography. Keep the alt pattern, name files `alex-adekunle-[context].webp`, serve WebP/AVIF.
-3. **Wire the forms.** `wire()` in [assets/js/main.js](assets/js/main.js) has the `TODO` marking the fetch. Route speaking and press to their own inboxes.
-4. **Drop in the scheduling embed** where `contact.html` marks the calendar slot.
-5. **Ship the OG image** at `/images/alex-adekunle-og.jpg`, 1200×630.
-7. **Pretty URLs.** Canonicals use `/about`, `/ventures/vavinix` etc. Map `about.html → /about` at the host (Netlify `_redirects`, Vercel `cleanUrls`, or nginx `try_files`) before indexing.
-7. **Confirm the domain** and pick https + www or non-www, 301 everything else.
+`prefers-reduced-motion` disables Lenis, parallax, stretch and every entrance.
 
-## Imagery
+## Content and truth
 
-Two kinds of image, handled differently.
+Copy is typed data in `lib/content/`, traceable to the brand strategy document. Two
+standing constraints:
 
-**Real photography** — `alex-adekunle-portrait`, `-agbada`, `-studio`. Supplied studio shots, used for the home hero, the About column and three gallery slots. These carry the document's alt pattern, `Alex Adekunle, founder of Vavinix, [context]`, and the Person schema `image` and Open Graph card both point at `alex-adekunle-portrait.jpg`.
+1. **No synthetic portraits.** Every image of Alex is a real photograph. Interiors and
+   still lifes are AI-generated stand-ins; the footer says so, and that line goes when the
+   shoot lands.
+2. **No portfolio here.** Client work and case studies live on vavinix.com. This site
+   targets who he is; the agency site targets what he sells. Keeping that boundary is
+   worth more than any ranking either site would win by blurring it.
 
-**Brand marks** — `logo.svg` (header and footer wordmark), `favicon-eagle.png`, and three venture marks trimmed from their supplied cream plates to transparent PNG (`vavinix-venture`, `aspire-trybe-venture`, `thereceipt-venture`). Originals kept in `_src/`. The Aspire Trybe file arrived named `aspiretrybex-` and was renamed: the old brand name now appears exactly once in the build, as schema `alternateName`, which is what the document specifies. All four ventures now have supplied marks, trimmed from their cream plates to transparent PNG: `vavinix-venture`, `aspire-trybe-venture`, `oneartpiece-venture`, `thereceipt-venture`. Originals live in `_src/`. Two filenames were normalised on the way in — `1artpiece-` became `oneartpiece-`, and `aspiretrybex-` became `aspire-trybe-`, since the retired brand name should appear exactly once in the build, as schema `alternateName`.
+Thin pages (`/ideas`, `/journal`, `/media`, `/resources`) ship `noindex, follow` and stay
+out of the sitemap until each holds three real items.
 
-Venture cards on the home bento and the ventures hub are logo plates (`.logo-plate`), not photography — a paper-50 field, hairline border, mark contained and centred, accent border on hover. `build.py` skips these when wrapping images for parallax, so a centred mark never drifts off its plate. Venture child pages keep scene photography with the mark above the hero.
+## Deployment
 
-**Generated scenes** — the remaining twelve, Higgsfield `gpt_image_2_5`, one matched set: white light, minimal composition, neutral palette, no people.
+GitHub Pages serves `docs/` from `main`. `npm run deploy` rebuilds it. The export is
+static — no Node runtime — so `output: "export"` is set and `next/image` uses a custom
+loader that maps requested widths onto the pre-built variants in `public/img`.
 
-- Sources: `assets/img/_src/*.png` — **gitignored**, regenerate rather than commit.
-- Served: `assets/img/<name>-<width>.jpg` at 480 / 768 / 1024 / native, plus `<name>.jpg` as the default `src`.
-- `assets/img/manifest.json` records the widths and true intrinsic dimensions; `build.py` reads it to write `srcset`, `sizes`, `width` and `height`, so nothing shifts while loading. 6.5MB total across 53 files.
+Before the domain goes live: point `alexadekunle.com` at Pages (four A records), then every
+canonical, `@id` and OG URL already resolves correctly from `lib/site.ts`.
 
-**Two deliberate constraints:**
+## History
 
-1. **No synthetic portraits of Alex.** Every image of him is a real photograph. A generated face published as the real founder would be fabrication, and it would undercut the entity strategy this site is built on.
-2. **Alt text describes what is in frame.** Photographs name him; generated scenes describe the room. The footer says which is which: *"Portraits are photographs. Interiors and still lifes are AI-generated stand-ins, pending a shoot."* When the full shoot lands, replace the scenes and delete that line.
-
-To regenerate, prompts live in the conversation that produced them; the pipeline is `sips` in a short Python block — see git history for the exact call.
-
-## Responsive
-
-Verified in headless Chrome across 320 / 375 / 430 / 768 / 1024 / 1280 / 1536 / 2560 — 128 renders, zero horizontal overflow, zero clipped headlines, no tap target under 40px.
-
-- `build.py` injects a width-descriptor `srcset` (480/768/1024/1400/1900) plus `sizes` on every Unsplash frame, so a 375px phone downloads a 480px file rather than an 1800px one.
-- Display type is fluid (`clamp(2.1rem, 10.2vw, 9rem)`); clip masks carry descender padding so nothing is cut at any size.
-- Card grids pair at `sm`, go editorial at `lg`. Definition rows get a dedicated 640–1023px layout.
-- Buttons go full width below 480px; form inputs are 16px so iOS does not zoom on focus.
-- Mobile drawer scrolls, locks the body, respects `env(safe-area-inset-bottom)`, and has a landscape-phone layout. It stays `position: fixed` — see the note below before touching the grid-rules selector.
-
-> **Do not add `.drawer` back to the `body > …` content-layering rule.** `body > .drawer` (specificity 0,1,1) outranks `.drawer { position: fixed }` (0,1,0), which demotes the drawer to `relative` and pins it to the top of the *document*. At scroll 0 that looks identical to fixed; scrolled down, the menu opens off-screen and the site appears to have a dead hamburger button. The rule now covers `header`, `main` and `footer` only, and `.drawer` carries `position: fixed !important` as a second guard. Regression-tested at 4 device sizes x 7 pages x 4 scroll depths (112 checks).
-- Architectural column rules thin from 5 to 3 to 2 and drop out entirely below 400px.
-- `@media (hover: none)` strips hover-only affordances; `prefers-reduced-motion` disables all of it.
-
-To re-run the checks, serve the folder and point a Playwright script at it — the harness used during the build lived in the scratchpad, not the repo.
-
-### Verified after the motion pass
-
-- 128 renders (16 pages x 8 viewports, 320 to 2560): zero page-level overflow. The detector ignores elements an ancestor already scrolls or clips.
-- Every page swept top to bottom: all curtains, reveals, split lines and parallax layers fire — 16/16 pages, zero console errors.
-- 60fps, zero frames over 22ms, during scripted scroll on the three heaviest pages.
-- Touch context: native momentum retained, reveals fire, marquee runs.
-- Reduced-motion context: Lenis off, veil hidden, curtains open, lines visible, marquee static.
+The previous build — a Python-generated static site — is preserved in git history at
+`01ee81c` if any markup needs consulting.

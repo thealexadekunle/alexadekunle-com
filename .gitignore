@@ -1,9 +1,11 @@
-# Dependencies / build output
+# Dependencies
 node_modules
+
+# Next.js
 .next
 out
-*.tsbuildinfo
 next-env.d.ts
+*.tsbuildinfo
 
 # Local env
 .env*.local
@@ -15,4 +17,6 @@ next-env.d.ts
 .agents/
 .claude/
 skills-lock.json
-assets/img/_src/
+
+# Generated image sources — regenerate rather than commit
+public/img/_src/
