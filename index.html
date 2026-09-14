@@ -187,8 +187,13 @@
 <!-- Architectural grid: five hairline rules behind the whole page -->
 <div class="grid-rules" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
 
-<!-- Cursor label for media tiles (desktop pointers only) -->
-<div class="cursor-label" data-cursor aria-hidden="true"><span data-cursor-text>View</span></div>
+<!-- Custom cursor: dot tracks exactly, ring lags and morphs by context.
+     Injected markup stays inert (pointer-events: none) and is hidden outright
+     on coarse pointers. -->
+<div class="cursor" data-cursor data-state="default" aria-hidden="true">
+  <div class="cursor__ring" data-cursor-ring><span class="cursor__text" data-cursor-text></span></div>
+  <div class="cursor__dot" data-cursor-dot></div>
+</div>
 
 <!-- ==========================================================================
      GLOBAL NAVIGATION — shared across every page, active state per route
@@ -354,7 +359,7 @@
         <a class="tile" data-tilt href="ventures-vavinix.html" data-cursor-target="Vavinix">
           <div class="frame logo-plate aspect-[16/10]" data-clip>
             <img src="assets/img/vavinix-venture.png" alt="Vavinix logo — the web design and digital branding company founded by Alex Adekunle"
-                 width="366" height="108" loading="lazy" decoding="async" />
+                 width="362" height="104" loading="lazy" decoding="async" />
           </div>
           <div class="mt-6 flex items-baseline justify-between gap-6">
             <span class="tile__index">Venture 01 — Company</span>
@@ -395,7 +400,8 @@
       <article class="group lg:col-span-5" data-reveal>
         <a class="tile" data-tilt href="ventures-oneartpiece.html" data-cursor-target="OneArtPiece">
           <div class="frame logo-plate aspect-[4/5]" data-clip>
-            <span class="logo-type">OneArtPiece</span>
+            <img src="assets/img/oneartpiece-venture.png" alt="OneArtPiece logo — the verified physical artwork marketplace founded by Alex Adekunle"
+                 width="319" height="85" loading="lazy" decoding="async" />
           </div>
           <div class="mt-6 flex items-baseline justify-between gap-6">
             <span class="tile__index">Venture 03 — Marketplace</span>
@@ -416,7 +422,7 @@
         <a class="tile" data-tilt href="ventures-the-receipt.html" data-cursor-target="The Receipt">
           <div class="frame logo-plate aspect-[16/10]" data-clip>
             <img src="assets/img/thereceipt-venture.png" alt="The Receipt logo — the Nigerian political accountability platform built by Alex Adekunle"
-                 width="316" height="86" loading="lazy" decoding="async" />
+                 width="312" height="82" loading="lazy" decoding="async" />
           </div>
           <div class="mt-6 flex items-baseline justify-between gap-6">
             <span class="tile__index">Venture 04 — Civic platform</span>

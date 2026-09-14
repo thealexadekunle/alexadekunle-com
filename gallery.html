@@ -90,8 +90,13 @@
 <!-- Architectural grid: five hairline rules behind the whole page -->
 <div class="grid-rules" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
 
-<!-- Cursor label for media tiles (desktop pointers only) -->
-<div class="cursor-label" data-cursor aria-hidden="true"><span data-cursor-text>View</span></div>
+<!-- Custom cursor: dot tracks exactly, ring lags and morphs by context.
+     Injected markup stays inert (pointer-events: none) and is hidden outright
+     on coarse pointers. -->
+<div class="cursor" data-cursor data-state="default" aria-hidden="true">
+  <div class="cursor__ring" data-cursor-ring><span class="cursor__text" data-cursor-text></span></div>
+  <div class="cursor__dot" data-cursor-dot></div>
+</div>
 
 <!-- ==========================================================================
      GLOBAL NAVIGATION — shared across every page, active state per route

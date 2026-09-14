@@ -323,35 +323,152 @@
   }
 
   /* ------------------------------------------------------------------
-     Cursor label over media tiles
+     Custom cursor
+
+     Dot rides the true pointer position every frame; the ring lerps behind
+     it, stretches along the direction of travel during fast flicks, and
+     snaps toward the centre of nearby magnetic targets. Context is resolved
+     from whatever is under the pointer, so it works on markup this module
+     has never seen.
      ------------------------------------------------------------------ */
   function initCursor() {
-    var label = $('[data-cursor]');
-    var text = $('[data-cursor-text]');
-    if (!label || reduced || !finePointer) return;
+    var root = $('[data-cursor]');
+    if (!root) return;
 
-    var targets = $$('[data-cursor-target]');
-    if (!targets.length) return;
-
-    var x = 0, y = 0, cx = 0, cy = 0, raf = null;
-    function loop() {
-      cx = lerp(cx, x, 0.16); cy = lerp(cy, y, 0.16);
-      label.style.translate = cx + 'px ' + cy + 'px';
-      raf = requestAnimationFrame(loop);
+    // Coarse pointers never get it: no hover, and a lagging ring on touch
+    // reads as jank rather than polish.
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      root.remove();
+      return;
     }
 
-    targets.forEach(function (el) {
-      el.addEventListener('pointerenter', function () {
-        if (text) text.textContent = el.getAttribute('data-cursor-target') || 'View';
-        label.classList.add('is-active');
-        if (!raf) loop();
+    var dot = $('[data-cursor-dot]', root);
+    var ring = $('[data-cursor-ring]', root);
+    var text = $('[data-cursor-text]', root);
+
+    var pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    var ringPos = { x: pointer.x, y: pointer.y };
+    var velocity = { x: 0, y: 0 };
+    var state = 'default';
+    var magnet = null;          // element the ring is currently drawn toward
+    var raf = null;
+    var active = false;
+
+    root.setAttribute('data-active', 'false');
+    document.documentElement.classList.add('has-cursor');
+
+    var LERP = reduced ? 1 : 0.19;
+    var SNAP_RADIUS = 90;       // px from a magnetic target's centre
+
+    function setState(next, label) {
+      if (next === state) return;
+      state = next;
+      root.setAttribute('data-state', next);
+      if (text) text.textContent = next === 'media' ? (label || 'View') : '';
+    }
+
+    /* What is under the pointer decides the cursor's shape. */
+    function resolve(target) {
+      if (!target || !target.closest) return setState('default');
+
+      var field = target.closest('input, textarea, select, [contenteditable="true"]');
+      if (field) return setState('field');
+
+      var media = target.closest('[data-cursor-target]');
+      if (media) return setState('media', media.getAttribute('data-cursor-target') || 'View');
+
+      var link = target.closest('a, button, [role="button"], summary, label, .chip');
+      if (link) {
+        // A link wrapping media gets the capsule, with the link's own label
+        var inner = link.querySelector('img, picture, video, .frame');
+        if (inner) {
+          var label = link.getAttribute('data-cursor-target')
+            || (link.querySelector('h2, h3') || {}).textContent
+            || 'View';
+          return setState('media', label.trim().slice(0, 28));
+        }
+        return setState('link');
+      }
+
+      // Editorial photography that is not a link: widen the ring so the image
+      // registers as a considered frame, but show no label — a "VIEW" capsule
+      // over something unclickable promises an interaction that does not exist.
+      var frame = target.closest('figure, .frame');
+      if (frame && frame.querySelector('img')) return setState('aura');
+
+      setState('default');
+    }
+
+    document.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'touch') return;
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+
+      if (!active) {
+        active = true;
+        ringPos.x = pointer.x; ringPos.y = pointer.y;
+        root.setAttribute('data-active', 'true');
+        if (!raf) raf = requestAnimationFrame(frameCursor);
+      }
+      resolve(e.target);
+    }, { passive: true });
+
+    document.addEventListener('pointerdown', function () { root.setAttribute('data-pressed', 'true'); });
+    document.addEventListener('pointerup', function () { root.setAttribute('data-pressed', 'false'); });
+
+    document.addEventListener('pointerleave', hide);
+    document.addEventListener('mouseleave', hide);
+    window.addEventListener('blur', hide);
+    function hide() { active = false; root.setAttribute('data-active', 'false'); }
+
+    /* Proximity snap: any magnetic target within SNAP_RADIUS pulls the ring. */
+    function findMagnet() {
+      var best = null, bestDist = SNAP_RADIUS;
+      $$('[data-magnetic], .btn, button[type="submit"]').forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (!r.width || r.bottom < 0 || r.top > window.innerHeight) return;
+        var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+        var d = Math.hypot(pointer.x - cx, pointer.y - cy) - Math.max(r.width, r.height) / 2;
+        if (d < bestDist) { bestDist = d; best = { el: el, cx: cx, cy: cy, d: d }; }
       });
-      el.addEventListener('pointermove', function (e) { x = e.clientX; y = e.clientY; });
-      el.addEventListener('pointerleave', function () {
-        label.classList.remove('is-active');
-        cancelAnimationFrame(raf); raf = null;
-      });
-    });
+      return best;
+    }
+
+    var snapTick = 0;
+    function frameCursor() {
+      // Recheck magnetic targets a few times a second, not every frame
+      if (++snapTick % 6 === 0) magnet = findMagnet();
+
+      var targetX = pointer.x, targetY = pointer.y;
+      if (magnet && !reduced) {
+        var pull = 1 - Math.min(Math.max(magnet.d, 0) / SNAP_RADIUS, 1);   // 0..1
+        targetX += (magnet.cx - pointer.x) * pull * 0.45;
+        targetY += (magnet.cy - pointer.y) * pull * 0.45;
+      }
+
+      var prevX = ringPos.x, prevY = ringPos.y;
+      ringPos.x = lerp(ringPos.x, targetX, LERP);
+      ringPos.y = lerp(ringPos.y, targetY, LERP);
+      velocity.x = ringPos.x - prevX;
+      velocity.y = ringPos.y - prevY;
+
+      // Flick stretch: elongate along the axis of travel, pinch across it
+      var speed = Math.hypot(velocity.x, velocity.y);
+      var stretch = reduced ? 0 : Math.min(speed / 90, 0.4);
+      var angle = stretch > 0.01 ? Math.atan2(velocity.y, velocity.x) * 180 / Math.PI : 0;
+      var press = root.getAttribute('data-pressed') === 'true' ? 0.9 : 1;
+      var shapely = state === 'default' || state === 'link';
+
+      dot.style.transform =
+        'translate3d(' + pointer.x + 'px,' + pointer.y + 'px,0) translate(-50%,-50%) scale(' + press + ')';
+
+      ring.style.transform =
+        'translate3d(' + ringPos.x.toFixed(2) + 'px,' + ringPos.y.toFixed(2) + 'px,0) translate(-50%,-50%)'
+        + (shapely ? ' rotate(' + angle.toFixed(1) + 'deg) scale(' + (1 + stretch) + ',' + (1 - stretch * 0.65) + ')' : '')
+        + ' scale(' + press + ')';
+
+      raf = requestAnimationFrame(frameCursor);
+    }
   }
 
   /* ------------------------------------------------------------------

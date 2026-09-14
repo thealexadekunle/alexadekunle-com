@@ -91,8 +91,13 @@
 <!-- Architectural grid: five hairline rules behind the whole page -->
 <div class="grid-rules" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
 
-<!-- Cursor label for media tiles (desktop pointers only) -->
-<div class="cursor-label" data-cursor aria-hidden="true"><span data-cursor-text>View</span></div>
+<!-- Custom cursor: dot tracks exactly, ring lags and morphs by context.
+     Injected markup stays inert (pointer-events: none) and is hidden outright
+     on coarse pointers. -->
+<div class="cursor" data-cursor data-state="default" aria-hidden="true">
+  <div class="cursor__ring" data-cursor-ring><span class="cursor__text" data-cursor-text></span></div>
+  <div class="cursor__dot" data-cursor-dot></div>
+</div>
 
 <!-- ==========================================================================
      GLOBAL NAVIGATION — shared across every page, active state per route
@@ -150,7 +155,7 @@
     <p class="lede mt-8 max-w-2xl" data-reveal>Nigerian political accountability, made checkable.</p>
 
     <img class="venture-mark mt-10" src="assets/img/thereceipt-venture.png"
-         alt="The Receipt logo — the Nigerian political accountability platform built by Alex Adekunle" width="316" height="86" loading="lazy" decoding="async" />
+         alt="The Receipt logo — the Nigerian political accountability platform built by Alex Adekunle" width="312" height="82" loading="lazy" decoding="async" />
 
     <div class="mt-14 frame frame--muted aspect-[16/9]" data-clip data-reveal>
       <div class="frame__inner" data-parallax="0.055"><img src="assets/img/civic-facade.jpg"

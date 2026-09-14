@@ -50,12 +50,35 @@ One `requestAnimationFrame` ticker drives every scroll-linked effect. Nothing re
 | Velocity marquee | `.marquee` | JS transform; speed and direction take a push from scroll velocity, slows on hover |
 | Magnetic CTAs | `data-magnetic` | Spring lerp on the shell, label trails at 32% |
 | Tilt + border light | `data-tilt` | `--mx/--my` feed a masked radial border glow; 2.4 degree perspective tilt |
-| Cursor label | `data-cursor-target` | Lerped follower naming the destination |
+| Custom cursor | `[data-cursor]` | Dual element: dot on the true pointer, ring lerped behind it. See below |
 | Page transitions | `data-veil` | Veil wipes down on internal navigation, up on arrival, bfcache-safe |
 
 Hooks are attached in `build.py` (`add_motion`), not hand-written into fragments, so content files stay pure markup. Tilt, magnetic and cursor bind on fine pointers only. `prefers-reduced-motion` disables Lenis, the veil, curtains, line masks, parallax and tilt — verified in a reduced-motion browser context.
 
 **One trap worth knowing:** the reveal first used `clip-path` on the observed element. A clipped element reports a zero intersection rect, so IntersectionObserver could never fire the reveal it was waiting for. The curtain pseudo-element keeps the box measurable.
+
+## Custom cursor
+
+Two elements, driven from one pointermove handler and the shared rAF ticker.
+
+- **Dot** — 6px, pinned to the exact pointer position every frame.
+- **Ring** — 36px, lerped at 0.19, stretched along the axis of travel during fast flicks and pinched across it.
+
+Context is resolved from whatever sits under the pointer, so it works on markup the module has never seen:
+
+| Under the pointer | State | Ring |
+|---|---|---|
+| Nothing interactive | `default` | 36px, hairline |
+| `a`, `button`, `[role=button]`, `label`, `summary`, `.chip` | `link` | 60px, accent border and glow, dot shrinks to 3px |
+| Anything with `data-cursor-target`, or a link wrapping media | `media` | Black capsule with the destination name |
+| `figure`/`.frame` holding an image, not a link | `aura` | 56px, quieter — deliberately *no* label |
+| `input`, `textarea`, `select`, `contenteditable` | `field` | 3×30px caret |
+
+Plus proximity snap (the ring pulls up to 45% toward the centre of any `.btn` or `[data-magnetic]` within 90px, rechecked every 6th frame rather than every frame) and a `scale(0.9)` compression on pointerdown.
+
+**Why `aura` carries no label:** a "VIEW" capsule over an unclickable editorial photograph promises an interaction that does not exist. Non-link media gets a wider ring instead.
+
+**Fallbacks:** the whole element is removed outright when `(hover: hover) and (pointer: fine)` does not match, so touch devices never run the loop. The native cursor is hidden by a `has-cursor` class that JavaScript adds at boot — if the script fails, the page keeps a normal pointer. Measured 57.8fps with one long frame during continuous movement.
 
 ## Interactive pieces
 
@@ -108,7 +131,7 @@ Two kinds of image, handled differently.
 
 **Real photography** — `alex-adekunle-portrait`, `-agbada`, `-studio`. Supplied studio shots, used for the home hero, the About column and three gallery slots. These carry the document's alt pattern, `Alex Adekunle, founder of Vavinix, [context]`, and the Person schema `image` and Open Graph card both point at `alex-adekunle-portrait.jpg`.
 
-**Brand marks** — `logo.svg` (header and footer wordmark), `favicon-eagle.png`, and three venture marks trimmed from their supplied cream plates to transparent PNG (`vavinix-venture`, `aspire-trybe-venture`, `thereceipt-venture`). Originals kept in `_src/`. The Aspire Trybe file arrived named `aspiretrybex-` and was renamed: the old brand name now appears exactly once in the build, as schema `alternateName`, which is what the document specifies. OneArtPiece has no mark yet: its card uses a set wordmark (`.logo-type`) as the lockup. Supply a real logo and swap the `<span>` for an `<img>` in `src/pages/index.html` and `src/pages/ventures.html`.
+**Brand marks** — `logo.svg` (header and footer wordmark), `favicon-eagle.png`, and three venture marks trimmed from their supplied cream plates to transparent PNG (`vavinix-venture`, `aspire-trybe-venture`, `thereceipt-venture`). Originals kept in `_src/`. The Aspire Trybe file arrived named `aspiretrybex-` and was renamed: the old brand name now appears exactly once in the build, as schema `alternateName`, which is what the document specifies. All four ventures now have supplied marks, trimmed from their cream plates to transparent PNG: `vavinix-venture`, `aspire-trybe-venture`, `oneartpiece-venture`, `thereceipt-venture`. Originals live in `_src/`. Two filenames were normalised on the way in — `1artpiece-` became `oneartpiece-`, and `aspiretrybex-` became `aspire-trybe-`, since the retired brand name should appear exactly once in the build, as schema `alternateName`.
 
 Venture cards on the home bento and the ventures hub are logo plates (`.logo-plate`), not photography — a paper-50 field, hairline border, mark contained and centred, accent border on hover. `build.py` skips these when wrapping images for parallax, so a centred mark never drifts off its plate. Venture child pages keep scene photography with the mark above the hero.
 
