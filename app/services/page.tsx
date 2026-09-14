@@ -123,8 +123,8 @@ export default function ServicesPage() {
             />
             <Reveal as="figure" className="mt-12">
               <AspectFrame
-                src="/img/eagle-strategy.jpg"
-                alt="The Eagle, illustrated: a bald eagle working at a laptop beside books on strategy, technology, business and leadership, an open notebook reading Think Better, Build Better, Lead Better, and a mug reading Progress Over Excuses"
+                src="/img/eagle-observe.svg"
+                alt="The Eagle, illustrated: a bald eagle in a waistcoat and glasses sitting back in a leather armchair with an open notebook, pen held to its beak, considering something"
                 ratio="2/3"
                 muted={false}
                 parallax={0.04}
