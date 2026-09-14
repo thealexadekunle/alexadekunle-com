@@ -123,9 +123,11 @@ export default function ServicesPage() {
             />
             <Reveal as="figure" className="mt-12">
               <AspectFrame
-                src="/img/meeting-still-life.jpg"
-                alt="A meeting table still life: a document face down, a fountain pen, folded glasses, black coffee"
-              ratio="4/5"
+                src="/img/eagle-strategy.jpg"
+                alt="The Eagle, illustrated: a bald eagle working at a laptop beside books on strategy, technology, business and leadership, an open notebook reading Think Better, Build Better, Lead Better, and a mug reading Progress Over Excuses"
+                ratio="2/3"
+                muted={false}
+                parallax={0.04}
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />
             </Reveal>
