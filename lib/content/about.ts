@@ -53,9 +53,7 @@ export type LifestyleFrame = {
   readonly src: string;
   readonly alt: string;
   readonly caption: string;
-  readonly width: number;
-  readonly height: number;
-  readonly aspect: string;
+  readonly ratio: "16/10" | "16/9" | "4/5" | "1/1";
   readonly span: string;
 };
 
@@ -64,45 +62,35 @@ export const LIFESTYLE_FRAMES: readonly LifestyleFrame[] = [
     src: "/img/room-for-focus.jpg",
     alt: "A light-filled room built for focus: linen chair, low oak shelf, sheer curtains",
     caption: "The workspace — a decision you make once and then live inside",
-    width: 1344,
-    height: 752,
-    aspect: "aspect-[16/10]",
+    ratio: "16/10",
     span: "col-span-2 lg:col-span-7",
   },
   {
     src: "/img/alex-adekunle-studio.jpg",
     alt: "Alex Adekunle, founder of Vavinix, photographed in the studio",
     caption: "Style — another form of communication",
-    width: 853,
-    height: 1200,
-    aspect: "aspect-[4/5]",
+    ratio: "4/5",
     span: "lg:col-span-5 lg:pt-16",
   },
   {
     src: "/img/travel-stair.jpg",
     alt: "A sunlit whitewashed modernist stair against a bright sky, hard shadow across the wall",
     caption: "Experiences — not photographs",
-    width: 1024,
-    height: 1024,
-    aspect: "aspect-square",
+    ratio: "1/1",
     span: "lg:col-span-4",
   },
   {
     src: "/img/books.jpg",
     alt: "A small stack of worn hardback books, one open face down, in raking window light",
     caption: "Learning — old books, no trends",
-    width: 1024,
-    height: 1024,
-    aspect: "aspect-square",
+    ratio: "1/1",
     span: "lg:col-span-4",
   },
   {
     src: "/img/meeting-still-life.jpg",
     alt: "A meeting table still life: a document face down, a fountain pen, folded glasses, black coffee",
     caption: "The table where the second conversation happens",
-    width: 896,
-    height: 1120,
-    aspect: "aspect-square",
+    ratio: "1/1",
     span: "col-span-2 lg:col-span-4",
   },
 ];

@@ -3,11 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/json-ld";
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
-import { MediaFrame } from "@/components/ui/media-frame";
+import { AspectFrame } from "@/components/ui/aspect-frame";
 import { Section } from "@/components/ui/section";
 import { VENTURE_DETAIL } from "@/lib/content/venture-detail";
 import { VENTURES, ventureBySlug } from "@/lib/content/ventures";
@@ -62,7 +62,7 @@ export default async function VenturePage({ params }: { params: Promise<Params> 
             <span className="text-accent">/</span> {venture.name}
           </nav>
 
-          <MaskedLines
+          <TextReveal
             as="h1"
             id="venture-heading"
             className="display mt-8"
@@ -87,12 +87,10 @@ export default async function VenturePage({ params }: { params: Promise<Params> 
           ) : null}
 
           <Reveal className="mt-14">
-            <MediaFrame
+            <AspectFrame
               src={detail.hero.src}
               alt={detail.hero.alt}
-              width={detail.hero.width}
-              height={detail.hero.height}
-              aspect="aspect-[16/9]"
+              ratio="16/9"
               priority
               sizes="100vw"
             />

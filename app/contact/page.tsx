@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
 import { Availability } from "@/components/ui/availability";
 import { ContactForm } from "@/components/ui/contact-form";
@@ -37,7 +37,7 @@ export default function ContactPage() {
             <Reveal delay={120}><span className="pill">Remote worldwide</span></Reveal>
           </div>
 
-          <MaskedLines
+          <TextReveal
             as="h1"
             id="contact-heading"
             className="display mt-10 max-w-[14ch]"
@@ -141,7 +141,7 @@ export default function ContactPage() {
       </Section>
 
       <Section tone="ink" bordered className="grain relative">
-        <MaskedLines className="display max-w-[13ch] text-paper" lines={["Tell me what", "you are building."]} />
+        <TextReveal className="display max-w-[13ch] text-paper" lines={["Tell me what", "you are building."]} />
         <Reveal>
           <p className="lede mt-10 max-w-xl !text-paper-200">Let us see where the conversation goes.</p>
         </Reveal>

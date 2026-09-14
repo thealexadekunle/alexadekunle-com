@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
 import { EditorialHero } from "@/components/sections/editorial-hero";
 import { TopicRows } from "@/components/sections/topic-rows";
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Section } from "@/components/ui/section";
@@ -36,7 +36,7 @@ export default function MediaPage() {
         <div id="press-kit" className="mt-24 scroll-mt-28 grid gap-14 border-t border-paper-200 pt-12 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
             <p className="label">Press kit</p>
-            <MaskedLines
+            <TextReveal
               className="display-sm mt-6 max-w-[12ch]"
               lines={["Take what you need", "without emailing me first."]}
             />

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
-import { MediaFrame } from "@/components/ui/media-frame";
+import { AspectFrame } from "@/components/ui/aspect-frame";
 import { Section } from "@/components/ui/section";
 import { PRINCIPLES } from "@/lib/content/principles";
 import { pageSchema } from "@/lib/schema";
@@ -24,7 +24,7 @@ export default function EaglePage() {
         <Container>
           <Reveal><span className="label">The Eagle — a working philosophy</span></Reveal>
 
-          <MaskedLines
+          <TextReveal
             as="h1"
             id="eagle-heading"
             className="display mt-10 max-w-[12ch]"
@@ -63,14 +63,12 @@ export default function EaglePage() {
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-5">
             <p className="label">Why the eagle</p>
-            <MaskedLines id="why-eagle" className="display-sm mt-6" lines={["Perspective."]} />
+            <TextReveal id="why-eagle" className="display-sm mt-6" lines={["Perspective."]} />
             <Reveal as="figure" className="mt-12">
-              <MediaFrame
+              <AspectFrame
                 src="/img/sky-edge.jpg"
                 alt="Looking up the clean edge of a white concrete building into open sky"
-                width={896}
-                height={1120}
-                aspect="aspect-[4/5]"
+              ratio="4/5"
                 parallax={0.05}
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />
@@ -98,7 +96,7 @@ export default function EaglePage() {
               <p className="prose-body mt-5">Not motivation for a day. A philosophy for the long game.</p>
             </Reveal>
 
-            <MaskedLines className="display-sm mt-16 max-w-[14ch]" lines={[SITE.tagline]} />
+            <TextReveal className="display-sm mt-16 max-w-[14ch]" lines={[SITE.tagline]} />
 
             <div className="mt-12 flex flex-wrap gap-4">
               <ButtonLink href="/ideas" variant="ghost">Read the ideas</ButtonLink>

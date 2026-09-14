@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 import { SITE } from "@/lib/site";
 
 type Availability = { readonly clock: string; readonly open: boolean; readonly status: string };
@@ -26,29 +26,45 @@ function read(): Availability {
   };
 }
 
+/** Cache the snapshot so useSyncExternalStore sees a stable reference. */
+let snapshot: Availability = { clock: "WAT", open: true, status: "Checking availability" };
+
+function subscribe(onChange: () => void): () => void {
+  const tick = () => {
+    const next = read();
+    if (next.clock !== snapshot.clock || next.open !== snapshot.open) {
+      snapshot = next;
+      onChange();
+    }
+  };
+  tick();
+  const timer = window.setInterval(tick, 30_000);
+  return () => window.clearInterval(timer);
+}
+
+const SERVER_SNAPSHOT: Availability = { clock: "WAT", open: true, status: "Checking availability" };
+
 /**
- * Live availability, read from the real clock in Lagos.
+ * Live availability from the real clock in Lagos.
  *
- * Rendered empty on the server and filled after mount: a static export bakes
- * HTML at build time, so a server-rendered time would be permanently wrong.
+ * A static export bakes HTML at build time, so the server snapshot is a neutral
+ * placeholder and the real time arrives on subscribe — no hydration mismatch,
+ * no stale timestamp burned into the page.
  */
 export function Availability({ variant = "pill" }: { readonly variant?: "pill" | "inline" }) {
-  const [state, setState] = useState<Availability | null>(null);
+  const getSnapshot = useCallback(() => snapshot, []);
+  const getServerSnapshot = useCallback(() => SERVER_SNAPSHOT, []);
+  const state = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  useEffect(() => {
-    setState(read());
-    const timer = window.setInterval(() => setState(read()), 30_000);
-    return () => window.clearInterval(timer);
-  }, []);
-
-  if (variant === "inline") {
-    return <span suppressHydrationWarning>{state?.clock ?? "WAT"}</span>;
-  }
+  if (variant === "inline") return <span>{state.clock}</span>;
 
   return (
-    <span className="pill" suppressHydrationWarning>
-      <span className={`pill-pip ${state && !state.open ? "!bg-zinc-400 after:!animate-none" : ""}`} aria-hidden="true" />
-      {state?.status ?? "Checking availability"}
+    <span className="pill">
+      <span
+        className={`pill-pip ${state.open ? "" : "!bg-zinc-400 after:!animate-none"}`}
+        aria-hidden="true"
+      />
+      {state.status}
     </span>
   );
 }

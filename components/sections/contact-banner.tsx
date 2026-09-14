@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 import { Section } from "@/components/ui/section";
 import { SITE } from "@/lib/site";
 
@@ -15,7 +16,7 @@ export function ContactBanner() {
     <Section tone="ink" bordered labelledBy="cta-heading" className="grain relative">
       <p className="label text-zinc-400">04 — What is next</p>
 
-      <MaskedLines
+      <TextReveal
         id="cta-heading"
         className="display mt-8 max-w-[13ch] text-paper"
         lines={["Let us build", "something that", "<em>matters.</em>"]}
@@ -49,9 +50,11 @@ export function ContactBanner() {
               </li>
             ))}
           </ul>
-          <Link href="/contact" data-magnetic className="btn btn-lg mt-10 border-paper text-paper">
-            <span>Tell me what you are building</span>
-          </Link>
+          <MagneticButton asChild className="btn-lg mt-10 border-paper text-paper">
+            <Link href="/contact">
+              <span>Tell me what you are building</span>
+            </Link>
+          </MagneticButton>
         </div>
       </div>
     </Section>

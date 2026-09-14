@@ -5,7 +5,7 @@ export type DetailRow = { readonly index: string; readonly title: string; readon
 export type VentureDetail = {
   readonly title: string;
   readonly description: string;
-  readonly hero: { readonly src: string; readonly alt: string; readonly width: number; readonly height: number };
+  readonly hero: { readonly src: string; readonly alt: string };
   readonly stats: readonly DetailStat[];
   readonly left: readonly DetailBlock[];
   readonly right: readonly DetailBlock[];
@@ -23,8 +23,6 @@ export const VENTURE_DETAIL: Record<string, VentureDetail> = {
     hero: {
       src: "/img/studio-daylight.jpg",
       alt: "An empty design studio in daylight: long white desk, monitors off, concrete floor",
-      width: 1344,
-      height: 752,
     },
     stats: [
       { value: "2021", label: "Founded" },
@@ -71,8 +69,6 @@ export const VENTURE_DETAIL: Record<string, VentureDetail> = {
     hero: {
       src: "/img/workshop-space.jpg",
       alt: "A learning space before a workshop begins: light wood tables, closed laptops, tall windows",
-      width: 1344,
-      height: 752,
     },
     stats: [
       { value: "17—30", label: "Age range" },
@@ -138,8 +134,6 @@ export const VENTURE_DETAIL: Record<string, VentureDetail> = {
     hero: {
       src: "/img/gallery-wall.jpg",
       alt: "Three original paintings hung on a white gallery wall under a skylight",
-      width: 896,
-      height: 1120,
     },
     stats: [],
     left: [
@@ -193,8 +187,6 @@ export const VENTURE_DETAIL: Record<string, VentureDetail> = {
     hero: {
       src: "/img/civic-facade.jpg",
       alt: "A modernist civic building facade in bright daylight, repeating concrete fins",
-      width: 1344,
-      height: 752,
     },
     stats: [
       { value: "36", label: "State governors" },

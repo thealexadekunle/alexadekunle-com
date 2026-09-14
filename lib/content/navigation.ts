@@ -3,6 +3,7 @@ export type NavItem = { readonly label: string; readonly href: string };
 /** Primary navigation. Eight items is the ceiling before a nav reads as a sitemap. */
 export const PRIMARY_NAV: readonly NavItem[] = [
   { label: "About", href: "/about" },
+  { label: "Work", href: "/work" },
   { label: "Ventures", href: "/ventures" },
   { label: "Services", href: "/services" },
   { label: "The Eagle", href: "/the-eagle" },
@@ -11,6 +12,7 @@ export const PRIMARY_NAV: readonly NavItem[] = [
 
 export const FOOTER_EXPLORE: readonly NavItem[] = [
   { label: "About", href: "/about" },
+  { label: "Work", href: "/work" },
   { label: "Ventures", href: "/ventures" },
   { label: "Services", href: "/services" },
   { label: "Ideas", href: "/ideas" },

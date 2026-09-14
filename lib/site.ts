@@ -43,3 +43,14 @@ export const BIO = {
     "Founder of Vavinix | Technology Entrepreneur, Web Developer and Business Strategist | Building Aspire Trybe, OneArtPiece and The Receipt",
   long: "Alex Akinyele Adekunle is a Nigerian technology entrepreneur, web developer and business strategist. He founded Vavinix in 2021, a web design and digital branding company working with clients across the United States, the United Kingdom, Spain and Nigeria. He is also building Aspire Trybe, a movement for African tech talent, OneArtPiece, a marketplace for verified physical artwork, and The Receipt, a civic accountability platform auditing Nigeria’s thirty six state governors against their manifestos. He has been building on the web since 2011 and holds a BSc in Mathematics from the Federal University of Agriculture, Abeokuta.",
 } as const;
+
+/**
+ * Prefix a public asset path with the deploy base path.
+ *
+ * `next/image` routes through the custom loader, which handles this itself, but
+ * metadata fields (icons, manifest) are emitted verbatim and need it applied.
+ */
+export function withBasePath(path: string): string {
+  const base = process.env["NEXT_PUBLIC_BASE_PATH"] ?? "";
+  return base && !path.startsWith(base) ? `${base}${path}` : path;
+}

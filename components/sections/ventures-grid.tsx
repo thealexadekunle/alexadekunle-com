@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
 import { Container } from "@/components/ui/container";
 import { VENTURES } from "@/lib/content/ventures";
@@ -22,7 +22,7 @@ export function VenturesGrid() {
         <header className="grid gap-8 lg:grid-cols-12">
           <p className="label lg:col-span-3">01 — What I am building</p>
           <div className="lg:col-span-9">
-            <MaskedLines
+            <TextReveal
               id="featured-heading"
               className="display-sm max-w-[16ch]"
               lines={["I do not just work on", "ideas. I build them."]}

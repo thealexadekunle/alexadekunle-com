@@ -5,6 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { PRIMARY_NAV } from "@/lib/content/navigation";
+import { MagneticButton } from "@/components/ui/magnetic-button";
+import { useMotion } from "@/lib/motion/motion-provider";
 import { subscribeScroll } from "@/lib/motion/scroll-store";
 
 /**
@@ -13,9 +15,19 @@ import { subscribeScroll } from "@/lib/motion/scroll-store";
  */
 export function SiteHeader() {
   const pathname = usePathname();
+  const { lockScroll } = useMotion();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [lastPath, setLastPath] = useState(pathname);
   const progressRef = useRef<HTMLDivElement>(null);
+
+  // Navigating closes the drawer. Adjusting state during render is React's
+  // sanctioned pattern for deriving from props — an effect here would queue a
+  // second render pass for no reason.
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setOpen(false);
+  }
 
   useEffect(() => {
     return subscribeScroll(({ y, progress }) => {
@@ -26,17 +38,10 @@ export function SiteHeader() {
     });
   }, []);
 
-  // Route change closes the drawer and restores scrolling
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
+    lockScroll(open);
+    return () => lockScroll(false);
+  }, [open, lockScroll]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -98,13 +103,11 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <Link
-              href="/contact"
-              data-magnetic
-              className="btn btn-fill hidden !w-auto sm:inline-flex"
-            >
-              <span>Start a conversation</span>
-            </Link>
+            <MagneticButton asChild className="btn-fill hidden !w-auto sm:inline-flex">
+              <Link href="/contact">
+                <span>Start a conversation</span>
+              </Link>
+            </MagneticButton>
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}

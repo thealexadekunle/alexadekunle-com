@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
-import { MediaFrame } from "@/components/ui/media-frame";
+import { AspectFrame } from "@/components/ui/aspect-frame";
 import { Section } from "@/components/ui/section";
 import { BELIEFS, LIFESTYLE_FRAMES, MILESTONES } from "@/lib/content/about";
 import { pageSchema } from "@/lib/schema";
@@ -28,7 +28,7 @@ export default function AboutPage() {
             <Reveal delay={80}><span className="label">Nigeria · Since 2011</span></Reveal>
           </div>
 
-          <MaskedLines
+          <TextReveal
             as="h1"
             id="about-heading"
             className="display mt-10 max-w-[13ch]"
@@ -45,12 +45,10 @@ export default function AboutPage() {
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-5">
             <Reveal as="figure" className="lg:sticky lg:top-28">
-              <MediaFrame
+              <AspectFrame
                 src="/img/alex-adekunle-portrait.jpg"
                 alt="Alex Akinyele Adekunle, technology entrepreneur and founder of Vavinix"
-                width={901}
-                height={1200}
-                aspect="aspect-[4/5]"
+              ratio="4/5"
                 muted={false}
                 priority
                 parallax={false}
@@ -99,7 +97,7 @@ export default function AboutPage() {
       <Section tone="raised" bordered labelledBy="milestones-heading">
         <header className="grid gap-8 lg:grid-cols-12">
           <p className="label lg:col-span-3">The line so far</p>
-          <MaskedLines
+          <TextReveal
             id="milestones-heading"
             className="display-sm max-w-[14ch] lg:col-span-9"
             lines={["Not a straight line.", "A consistent direction."]}
@@ -164,7 +162,7 @@ export default function AboutPage() {
         <div className="mt-24 grid gap-12 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
             <p className="label">What I believe</p>
-            <MaskedLines className="display-sm mt-6 max-w-[10ch]" lines={["Six lines I", "keep testing."]} />
+            <TextReveal className="display-sm mt-6 max-w-[10ch]" lines={["Six lines I", "keep testing."]} />
             <Reveal>
               <p className="prose-body mt-8 max-w-sm">
                 Curiosity starts it. Building sustains it. Freedom is why it matters. Impact is what
@@ -188,7 +186,7 @@ export default function AboutPage() {
         <header className="grid gap-8 lg:grid-cols-12">
           <p className="label lg:col-span-3">Beyond the work</p>
           <div className="lg:col-span-9">
-            <MaskedLines
+            <TextReveal
               id="lifestyle-heading"
               className="display-sm max-w-[13ch]"
               lines={["The life around", "the work."]}
@@ -205,12 +203,10 @@ export default function AboutPage() {
         <div className="mt-16 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-12">
           {LIFESTYLE_FRAMES.map((frame, index) => (
             <Reveal key={frame.src} as="figure" delay={index * 80} className={frame.span}>
-              <MediaFrame
+              <AspectFrame
                 src={frame.src}
                 alt={frame.alt}
-                width={frame.width}
-                height={frame.height}
-                aspect={frame.aspect}
+                ratio={frame.ratio}
                 muted={!frame.src.includes("alex-adekunle")}
                 sizes="(max-width: 640px) 50vw, 30vw"
               />
@@ -268,7 +264,7 @@ export default function AboutPage() {
             <p className="label">A work in progress</p>
           </div>
           <div className="lg:col-span-7 lg:col-start-6">
-            <MaskedLines id="progress-heading" className="display-sm max-w-[16ch]" lines={["I am still becoming."]} />
+            <TextReveal id="progress-heading" className="display-sm max-w-[16ch]" lines={["I am still becoming."]} />
             <Reveal>
               <p className="prose-body mt-8">
                 The person on this website is not a finished version of me and I would be worried if

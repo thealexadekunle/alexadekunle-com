@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
 import { ScopeSwitch } from "@/components/sections/scope-switch";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
-import { MediaFrame } from "@/components/ui/media-frame";
+import { AspectFrame } from "@/components/ui/aspect-frame";
 import { Section } from "@/components/ui/section";
 import { GOOD_FIT, NOT_FIT, PROCESS } from "@/lib/content/services";
 import { pageSchema } from "@/lib/schema";
@@ -27,7 +27,7 @@ export default function ServicesPage() {
             <Reveal delay={80}><span className="label">Selective · Remote or in person</span></Reveal>
           </div>
 
-          <MaskedLines
+          <TextReveal
             as="h1"
             id="services-heading"
             className="display mt-10 max-w-[15ch]"
@@ -53,7 +53,7 @@ export default function ServicesPage() {
         <header className="grid gap-8 lg:grid-cols-12">
           <p className="label lg:col-span-3">01 — Scope tiers</p>
           <div className="lg:col-span-9">
-            <MaskedLines
+            <TextReveal
               id="tiers-heading"
               className="display-sm max-w-[14ch]"
               lines={["Four engagements.", "Different weights."]}
@@ -66,8 +66,9 @@ export default function ServicesPage() {
       <Section tone="raised" bordered labelledBy="process-heading">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
+            <div className="lg:sticky lg:top-28">
             <p className="label">02 — Process</p>
-            <MaskedLines
+            <TextReveal
               id="process-heading"
               className="display-sm mt-6 max-w-[11ch]"
               lines={["How the work", "actually runs."]}
@@ -79,6 +80,7 @@ export default function ServicesPage() {
                 value without you standing over it.
               </p>
             </Reveal>
+            </div>
           </div>
 
           <div className="lg:col-span-7 lg:col-start-6">
@@ -114,18 +116,16 @@ export default function ServicesPage() {
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-5">
             <p className="label">03 — Fit</p>
-            <MaskedLines
+            <TextReveal
               id="fit-heading"
               className="display-sm mt-6 max-w-[12ch]"
               lines={["Who this is for,", "and who it is not."]}
             />
             <Reveal as="figure" className="mt-12">
-              <MediaFrame
+              <AspectFrame
                 src="/img/meeting-still-life.jpg"
                 alt="A meeting table still life: a document face down, a fountain pen, folded glasses, black coffee"
-                width={896}
-                height={1120}
-                aspect="aspect-[4/5]"
+              ratio="4/5"
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />
             </Reveal>

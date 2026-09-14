@@ -21,10 +21,13 @@ app/                 routes — one folder per page, Server Components by defaul
   page.tsx           home
   [route]/page.tsx   14 further routes
   ventures/[slug]/   4 venture pages via generateStaticParams
+  work/              filterable archive
+  work/[slug]/       6 case studies via generateStaticParams
   robots.ts          AI crawlers deliberately allowed
   sitemap.ts         indexable URLs only
 components/
-  ui/                primitives: Container, Section, ButtonLink, MediaFrame, Marquee, forms
+  ui/                primitives: Slot, MagneticButton, BentoGrid, TextReveal, AspectFrame,
+                     Container, Section, ButtonLink, Marquee, forms
   sections/          page sections: Hero, VenturesGrid, Philosophy, Engagements, ContactBanner…
   motion/            Reveal, MaskedLines, ParallaxFrame, Cursor
   site-header.tsx    floating glass header + mobile drawer
@@ -33,11 +36,25 @@ lib/
   site.ts            domain, handles, bios — one place to change the domain
   schema.ts          Person / WebSite / Organization nodes
   content/           typed copy: ventures, principles, services, about, editorial
-  motion/            Lenis provider, shared scroll store, media-query hooks
+  motion/            MotionProvider (Lenis + scroll lock + anchor easing),
+                     shared scroll store, media-query hooks
   image-loader.ts    maps next/image widths onto pre-built variants
 public/img/          photography, generated scenes, logos, manifest
 docs/                build output committed for GitHub Pages
 ```
+
+### Patterns
+
+- **Slot / `asChild`** — `components/ui/slot.tsx` is a ~30-line local Slot. `MagneticButton`,
+  `BentoCell` and `ButtonLink` render *into* their child rather than wrapping it, so a `Link`
+  keeps working while inheriting behaviour. No Radix dependency for one behaviour.
+- **Motion context** — `MotionProvider` owns the Lenis instance, the single rAF loop, scroll
+  locking and anchor easing. Scroll-linked components subscribe to a module store via
+  `useSyncExternalStore`, so a parallax frame five levels deep costs nothing and drills nothing.
+- **External state, not effects** — media queries and the Lagos clock are read with
+  `useSyncExternalStore`, which gives a defined server snapshot and removes the
+  setState-in-effect cascade the React compiler lints against.
+- **Compound components** — `BentoGrid` / `BentoGrid.Cell`, `Section` with tone and border slots.
 
 **Server vs client.** Everything renders on the server by default. `"use client"` appears
 only where it must: the header (scroll state), the cursor, the motion primitives, the
@@ -89,9 +106,16 @@ standing constraints:
 1. **No synthetic portraits.** Every image of Alex is a real photograph. Interiors and
    still lifes are AI-generated stand-ins; the footer says so, and that line goes when the
    shoot lands.
-2. **No portfolio here.** Client work and case studies live on vavinix.com. This site
-   targets who he is; the agency site targets what he sells. Keeping that boundary is
-   worth more than any ranking either site would win by blurring it.
+2. **Work lives here, canonically elsewhere.** `/work` and `/work/[slug]` are built and
+   fully functional, but they carry `noindex, follow` and canonicals pointing at
+   `vavinix.com/work/...`. The brand document is explicit that client-name queries should
+   land where the commercial intent does, and two domains competing for "who designed X"
+   splits the signal. Flip `robots` and `alternates` in the two route files to make them
+   native to this domain.
+3. **No invented metrics.** Case-study figures render as `—` with a pending note until a
+   number can be verified against analytics the client can see. The ten further project
+   names from the original draft are excluded: several circulate as template builds, and a
+   client who recognises one discounts everything beside it.
 
 Thin pages (`/ideas`, `/journal`, `/media`, `/resources`) ship `noindex, follow` and stay
 out of the sitemap until each holds three real items.

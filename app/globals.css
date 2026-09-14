@@ -75,7 +75,7 @@
 @layer components {
   /* ---- Type primitives ------------------------------------------------- */
   .label {
-    @apply text-[10px] font-medium uppercase tracking-label text-zinc-500;
+    @apply font-mono text-[10px] font-medium uppercase tracking-label text-zinc-500;
   }
   .label-ink { @apply text-ink; }
   .label-accent { @apply text-accent; }
@@ -213,6 +213,7 @@
   .tag {
     display: inline-flex;
     align-items: center;
+    font-family: var(--font-mono), ui-monospace, monospace;
     border: 1px solid var(--line-strong);
     padding: 5px 11px;
     font-size: 10px;
@@ -224,6 +225,7 @@
   .tag:hover { border-color: var(--ink); color: var(--ink); }
 
   .chip {
+    font-family: var(--font-mono), ui-monospace, monospace;
     min-height: 40px;
     padding: 9px 16px;
     display: inline-flex;
@@ -304,7 +306,7 @@
   }
   @media (hover: none) { .drow:hover { padding-left: 0; } }
 
-  .tile-index { font-size: 10px; letter-spacing: 0.18em; color: var(--zinc-400); }
+  .tile-index { font-family: var(--font-mono), ui-monospace, monospace; font-size: 10px; letter-spacing: 0.18em; color: var(--zinc-400); }
   .tile-title { font-size: clamp(1.35rem, 4.5vw, 2.25rem); font-weight: 500; letter-spacing: -0.04em; margin-top: 14px; }
   .tile-rule { position: relative; display: block; height: 1px; width: 100%; background: var(--line-strong); margin-top: 22px; overflow: hidden; }
   .tile-rule::after {
@@ -436,6 +438,7 @@
 }
 
 .cursor-text {
+  font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.16em;

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
 import { GalleryGrid } from "@/components/sections/gallery-grid";
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -21,7 +21,7 @@ export default function GalleryPage() {
         <Container>
           <Reveal><span className="label">Gallery — Alex Adekunle in photographs</span></Reveal>
 
-          <MaskedLines
+          <TextReveal
             as="h1"
             id="gallery-heading"
             className="display mt-10 max-w-[13ch]"
@@ -43,7 +43,7 @@ export default function GalleryPage() {
 
       <Section className="!py-16 sm:!py-24">
         <GalleryGrid />
-        <MaskedLines className="display-sm mt-20 max-w-[14ch]" lines={["Still building.", "Still documenting."]} />
+        <TextReveal className="display-sm mt-20 max-w-[14ch]" lines={["Still building.", "Still documenting."]} />
       </Section>
 
       <JsonLd graph={[pageSchema("ImageGallery", "/gallery", "Gallery")]} />

@@ -108,19 +108,17 @@ export type GalleryFrame = {
   readonly alt: string;
   readonly caption: string;
   readonly category: "portraits" | "work" | "events" | "travel" | "objects";
-  readonly width: number;
-  readonly height: number;
-  readonly aspect: string;
+  readonly ratio: "16/10" | "16/9" | "4/5" | "1/1";
   readonly span: string;
 };
 
 export const GALLERY: readonly GalleryFrame[] = [
-  { src: "/img/workspace-first-light.jpg", alt: "A plain oak desk in first light: closed laptop, a stack of paper, one pencil", caption: "The desk, mid-build", category: "work", width: 1344, height: 752, aspect: "aspect-[16/10]", span: "col-span-2 lg:col-span-7" },
-  { src: "/img/alex-adekunle-portrait.jpg", alt: "Alex Adekunle, founder of Vavinix, studio portrait, Lagos, 2026", caption: "Portrait — Lagos, 2026", category: "portraits", width: 901, height: 1200, aspect: "aspect-[4/5]", span: "lg:col-span-5 lg:pt-14" },
-  { src: "/img/workshop-space.jpg", alt: "A room set for a talk: light wood seating, tall windows, afternoon light", caption: "The room before a talk begins", category: "events", width: 1344, height: 752, aspect: "aspect-square", span: "lg:col-span-4" },
-  { src: "/img/meeting-still-life.jpg", alt: "A meeting table still life: a document face down, a fountain pen, folded glasses, black coffee", caption: "A table mid-decision", category: "objects", width: 896, height: 1120, aspect: "aspect-square", span: "lg:col-span-4" },
-  { src: "/img/alex-adekunle-agbada.jpg", alt: "Alex Adekunle, founder of Vavinix, in black and gold agbada, Lagos, 2026", caption: "Agbada — Lagos, 2026", category: "portraits", width: 895, height: 1200, aspect: "aspect-square", span: "lg:col-span-4" },
-  { src: "/img/alex-adekunle-studio.jpg", alt: "Alex Adekunle, founder of Vavinix, studio session, Lagos, 2026", caption: "Studio — Lagos, 2026", category: "portraits", width: 853, height: 1200, aspect: "aspect-[4/5]", span: "lg:col-span-5" },
-  { src: "/img/sky-edge.jpg", alt: "Looking up the clean edge of a white concrete building into open sky", caption: "Structure — everywhere, once you look", category: "travel", width: 896, height: 1120, aspect: "aspect-[16/10]", span: "col-span-2 lg:col-span-7 lg:pt-14" },
-  { src: "/img/room-for-focus.jpg", alt: "A light-filled room built for focus: linen chair, low oak shelf, sheer curtains", caption: "Seats set for the next cohort", category: "objects", width: 1344, height: 752, aspect: "aspect-[16/9]", span: "col-span-2 lg:col-span-12" },
+  { src: "/img/workspace-first-light.jpg", alt: "A plain oak desk in first light: closed laptop, a stack of paper, one pencil", caption: "The desk, mid-build", category: "work", ratio: "16/10", span: "col-span-2 lg:col-span-7" },
+  { src: "/img/alex-adekunle-portrait.jpg", alt: "Alex Adekunle, founder of Vavinix, studio portrait, Lagos, 2026", caption: "Portrait — Lagos, 2026", category: "portraits", ratio: "4/5", span: "lg:col-span-5 lg:pt-14" },
+  { src: "/img/workshop-space.jpg", alt: "A room set for a talk: light wood seating, tall windows, afternoon light", caption: "The room before a talk begins", category: "events", ratio: "1/1", span: "lg:col-span-4" },
+  { src: "/img/meeting-still-life.jpg", alt: "A meeting table still life: a document face down, a fountain pen, folded glasses, black coffee", caption: "A table mid-decision", category: "objects", ratio: "1/1", span: "lg:col-span-4" },
+  { src: "/img/alex-adekunle-agbada.jpg", alt: "Alex Adekunle, founder of Vavinix, in black and gold agbada, Lagos, 2026", caption: "Agbada — Lagos, 2026", category: "portraits", ratio: "1/1", span: "lg:col-span-4" },
+  { src: "/img/alex-adekunle-studio.jpg", alt: "Alex Adekunle, founder of Vavinix, studio session, Lagos, 2026", caption: "Studio — Lagos, 2026", category: "portraits", ratio: "4/5", span: "lg:col-span-5" },
+  { src: "/img/sky-edge.jpg", alt: "Looking up the clean edge of a white concrete building into open sky", caption: "Structure — everywhere, once you look", category: "travel", ratio: "16/10", span: "col-span-2 lg:col-span-7 lg:pt-14" },
+  { src: "/img/room-for-focus.jpg", alt: "A light-filled room built for focus: linen chair, low oak shelf, sheer curtains", caption: "Seats set for the next cohort", category: "objects", ratio: "16/9", span: "col-span-2 lg:col-span-12" },
 ];

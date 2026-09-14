@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { MagneticButton } from "./magnetic-button";
 
 type ButtonLinkProps = {
   readonly href: string;
@@ -11,8 +12,12 @@ type ButtonLinkProps = {
 };
 
 /**
- * One link-shaped button. External hrefs render as a plain anchor so the
- * static export never routes them through the client router.
+ * The one link-shaped control.
+ *
+ * `magnetic` is not decoration: it hands the anchor to MagneticButton via the
+ * slot pattern, so the element itself springs toward the pointer. External
+ * hrefs stay plain anchors so the static export never routes them through the
+ * client router.
  */
 export function ButtonLink({
   href,
@@ -23,7 +28,6 @@ export function ButtonLink({
   className = "",
 }: ButtonLinkProps) {
   const classes = [
-    "btn",
     variant === "fill" ? "btn-fill" : "btn-ghost",
     size === "lg" ? "btn-lg" : "",
     className,
@@ -32,23 +36,31 @@ export function ButtonLink({
     .join(" ");
 
   const external = href.startsWith("http") || href.startsWith("mailto:");
-  const magneticProps = magnetic ? { "data-magnetic": "" } : {};
 
-  if (external) {
+  const anchor = external ? (
+    <a href={href} rel="noopener">
+      <span>{children}</span>
+    </a>
+  ) : (
+    <Link href={href}>
+      <span>{children}</span>
+    </Link>
+  );
+
+  if (magnetic) {
     return (
-      <a
-        href={href}
-        rel="noopener"
-        className={classes}
-        {...magneticProps}
-      >
-        <span>{children}</span>
-      </a>
+      <MagneticButton asChild className={classes}>
+        {anchor}
+      </MagneticButton>
     );
   }
 
-  return (
-    <Link href={href} className={classes} {...magneticProps}>
+  return external ? (
+    <a href={href} rel="noopener" className={`btn ${classes}`}>
+      <span>{children}</span>
+    </a>
+  ) : (
+    <Link href={href} className={`btn ${classes}`}>
       <span>{children}</span>
     </Link>
   );

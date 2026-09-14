@@ -12,7 +12,7 @@ export function NewsletterForm() {
     const email = form.elements.namedItem("email");
     if (!(email instanceof HTMLInputElement) || !email.checkValidity() || !email.value.trim()) {
       setStatus("That address does not look right.");
-      email instanceof HTMLInputElement && email.focus();
+      if (email instanceof HTMLInputElement) email.focus();
       return;
     }
     // TODO: POST to the list provider before launch.

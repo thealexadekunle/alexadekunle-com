@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Section } from "@/components/ui/section";
@@ -43,7 +43,7 @@ export function Engagements() {
       <header className="grid gap-8 lg:grid-cols-12">
         <p className="label lg:col-span-3">03 — How to work with me</p>
         <div className="lg:col-span-9">
-          <MaskedLines
+          <TextReveal
             id="offer-heading"
             className="display-sm max-w-[15ch]"
             lines={["Four ways in.", "One conversation first."]}
@@ -74,7 +74,7 @@ export function Engagements() {
 
       <div className="mt-20 grid gap-12 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
-          <MaskedLines
+          <TextReveal
             className="display-sm max-w-[12ch]"
             lines={["The portfolio lives", "there, not here."]}
           />
@@ -96,9 +96,10 @@ export function Engagements() {
                 </span>
               ))}
             </div>
-            <div className="mt-10">
+            <div className="mt-10 flex flex-wrap gap-4">
+              <ButtonLink href="/work" variant="ghost">See selected work</ButtonLink>
               <ButtonLink href="https://vavinix.com" magnetic>
-                See the portfolio at vavinix.com ↗
+                The full portfolio at vavinix.com ↗
               </ButtonLink>
             </div>
           </Reveal>

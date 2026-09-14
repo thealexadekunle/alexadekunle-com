@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
-import { MediaFrame } from "@/components/ui/media-frame";
+import { AspectFrame } from "@/components/ui/aspect-frame";
 import { Section } from "@/components/ui/section";
 
 const STEPS = [
@@ -17,18 +17,16 @@ export function Philosophy() {
       <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-4">
           <p className="label">02 — The way I think</p>
-          <MaskedLines
+          <TextReveal
             id="philosophy-heading"
             className="display-sm mt-6 max-w-[11ch]"
             lines={["Technology was never", "the destination."]}
           />
           <Reveal as="figure" className="mt-12 hidden lg:block">
-            <MediaFrame
+            <AspectFrame
               src="/img/sky-edge.jpg"
               alt="Looking up the clean edge of a white concrete building into open sky"
-              width={896}
-              height={1120}
-              aspect="aspect-square"
+              ratio="1/1"
               parallax={0.05}
               sizes="30vw"
             />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useFinePointer, useReducedMotion } from "@/lib/motion/use-reduced-motion";
+import { useFinePointer, useReducedMotion } from "@/lib/motion/use-media-query";
 
 type CursorState = "default" | "link" | "media" | "aura" | "field";
 

@@ -1,4 +1,4 @@
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
 import { Container } from "@/components/ui/container";
 
@@ -17,7 +17,7 @@ export function EditorialHero({ eyebrow, lines, lede, id, note, children }: Edit
     <section className="pt-32 sm:pt-40 lg:pt-44" aria-labelledby={id}>
       <Container>
         <Reveal><span className="label">{eyebrow}</span></Reveal>
-        <MaskedLines as="h1" id={id} className="display mt-10 max-w-[14ch]" lines={lines} />
+        <TextReveal as="h1" id={id} className="display mt-10 max-w-[14ch]" lines={lines} />
         <Reveal>
           <p className="lede mt-10 max-w-2xl">{lede}</p>
           {note ? <p className="prose-body mt-6 max-w-2xl">{note}</p> : null}

@@ -2,7 +2,7 @@
 
 import { type ReactNode, type Ref, useRef } from "react";
 import { motion, useInView } from "motion/react";
-import { useReducedMotion } from "@/lib/motion/use-reduced-motion";
+import { useReducedMotion } from "@/lib/motion/use-media-query";
 
 type RevealProps = {
   readonly children: ReactNode;

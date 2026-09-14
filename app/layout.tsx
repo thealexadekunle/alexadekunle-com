@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { Cursor } from "@/components/motion/cursor";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { JsonLd } from "@/components/json-ld";
 import { personSchema, vavinixSchema, websiteSchema } from "@/lib/schema";
-import { SITE } from "@/lib/site";
-import { SmoothScroll } from "@/lib/motion/smooth-scroll";
+import { SITE, withBasePath } from "@/lib/site";
+import { MotionProvider } from "@/lib/motion/motion-provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -14,6 +14,14 @@ const inter = Inter({
   display: "swap",
   variable: "--font-inter",
   weight: ["300", "400", "500", "600", "700"],
+});
+
+/** Technical metadata markers only: eyebrows, indices, tags, figure numbers. */
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -26,7 +34,10 @@ export const metadata: Metadata = {
     "Alex Adekunle is a Nigerian technology entrepreneur and web developer. Founder of Vavinix. Building Aspire Trybe, OneArtPiece and The Receipt.",
   authors: [{ name: SITE.legalName }],
   creator: SITE.legalName,
-  icons: { icon: "/img/favicon-eagle.png", apple: "/img/favicon-eagle.png" },
+  icons: {
+    icon: withBasePath("/img/favicon-eagle.png"),
+    apple: withBasePath("/img/favicon-eagle.png"),
+  },
   robots: { index: true, follow: true, "max-image-preview": "large" },
   openGraph: {
     type: "profile",
@@ -46,7 +57,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { readonly children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} ${mono.variable}`}>
       <body className="bg-paper font-sans text-ink antialiased">
         <a
           href="#main"
@@ -60,15 +71,16 @@ export default function RootLayout({ children }: { readonly children: React.Reac
           <span /><span /><span /><span /><span />
         </div>
 
-        <SmoothScroll />
-        <Cursor />
-        <SiteHeader />
+        <MotionProvider>
+          <Cursor />
+          <SiteHeader />
 
-        <main id="main" className="relative z-[1]">
-          {children}
-        </main>
+          <main id="main" className="relative z-[1]">
+            {children}
+          </main>
 
-        <SiteFooter />
+          <SiteFooter />
+        </MotionProvider>
 
         <JsonLd graph={[personSchema, websiteSchema, vavinixSchema]} />
       </body>

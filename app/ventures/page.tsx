@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
@@ -30,7 +30,7 @@ export default function VenturesPage() {
             </Reveal>
           </div>
 
-          <MaskedLines
+          <TextReveal
             as="h1"
             id="ventures-heading"
             className="display mt-10 max-w-[14ch]"
@@ -94,7 +94,7 @@ export default function VenturesPage() {
             <p className="label">The bigger picture</p>
           </div>
           <div className="lg:col-span-7 lg:col-start-6">
-            <MaskedLines
+            <TextReveal
               id="bigger-heading"
               className="display-sm max-w-[16ch]"
               lines={["I do not want the things", "I build to look the same."]}

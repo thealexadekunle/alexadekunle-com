@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Reveal } from "@/components/motion/reveal";
-import { MediaFrame } from "@/components/ui/media-frame";
+import { AspectFrame } from "@/components/ui/aspect-frame";
 import { GALLERY, type GalleryFrame } from "@/lib/content/editorial";
 
 const FILTERS = [
@@ -44,12 +44,10 @@ export function GalleryGrid() {
       <div className="mt-16 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-12">
         {shown.map((frame, index) => (
           <Reveal key={frame.src} as="figure" delay={(index % 3) * 70} className={frame.span}>
-            <MediaFrame
+            <AspectFrame
               src={frame.src}
               alt={frame.alt}
-              width={frame.width}
-              height={frame.height}
-              aspect={frame.aspect}
+              ratio={frame.ratio}
               muted={!isReal(frame)}
               sizes="(max-width: 640px) 50vw, 40vw"
             />

@@ -18,18 +18,27 @@ import manifest from "@/public/img/manifest.json";
 type ManifestEntry = { widths: number[]; native: number; height: number };
 const entries = manifest as Record<string, ManifestEntry>;
 
+/**
+ * Deploy prefix. On GitHub Pages the site lives under /alexadekunle-com, and a
+ * loader that returns root-relative URLs would 404 every image there.
+ */
+const BASE = process.env["NEXT_PUBLIC_BASE_PATH"] ?? "";
+
+const withBase = (path: string): string =>
+  BASE && !path.startsWith(BASE) ? `${BASE}${path}` : path;
+
 export default function imageLoader({ src, width }: ImageLoaderProps): string {
   const match = /^\/img\/([^/.]+)\.(jpg|jpeg)$/i.exec(src);
-  if (!match) return src;
+  if (!match) return withBase(src);
 
   const name = match[1];
-  if (!name) return src;
+  if (!name) return withBase(src);
 
   const entry = entries[name];
-  if (!entry) return src;
+  if (!entry) return withBase(src);
 
   const candidate =
     entry.widths.find((w) => w >= width) ?? entry.widths[entry.widths.length - 1];
 
-  return candidate === undefined ? src : `/img/${name}-${candidate}.jpg`;
+  return withBase(candidate === undefined ? src : `/img/${name}-${candidate}.jpg`);
 }

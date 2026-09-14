@@ -2,7 +2,7 @@
 
 import { type ReactNode, useEffect, useRef } from "react";
 import { subscribeScroll } from "@/lib/motion/scroll-store";
-import { useReducedMotion } from "@/lib/motion/use-reduced-motion";
+import { useReducedMotion } from "@/lib/motion/use-media-query";
 
 type ParallaxFrameProps = {
   readonly children: ReactNode;

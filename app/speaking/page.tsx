@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
 import { Container } from "@/components/ui/container";
-import { MediaFrame } from "@/components/ui/media-frame";
+import { AspectFrame } from "@/components/ui/aspect-frame";
 import { Section } from "@/components/ui/section";
 import { SpeakingForm } from "@/components/ui/speaking-form";
 import { SPEAKING_TOPICS } from "@/lib/content/editorial";
@@ -26,7 +26,7 @@ export default function SpeakingPage() {
             <Reveal delay={80}><span className="label">In person or remote</span></Reveal>
           </div>
 
-          <MaskedLines
+          <TextReveal
             as="h1"
             id="speaking-heading"
             className="display mt-10 max-w-[13ch]"
@@ -41,12 +41,10 @@ export default function SpeakingPage() {
           </Reveal>
 
           <Reveal className="mt-14">
-            <MediaFrame
+            <AspectFrame
               src="/img/workshop-space.jpg"
               alt="A room set for a talk: light wood seating, tall windows, afternoon light"
-              width={1344}
-              height={752}
-              aspect="aspect-[16/9]"
+              ratio="16/9"
               priority
               sizes="100vw"
             />

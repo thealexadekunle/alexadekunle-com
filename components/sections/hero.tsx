@@ -1,8 +1,8 @@
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
-import { MediaFrame } from "@/components/ui/media-frame";
+import { AspectFrame } from "@/components/ui/aspect-frame";
 import { SITE } from "@/lib/site";
 
 type Stat = { readonly value: string; readonly label: string; readonly accent?: boolean };
@@ -30,7 +30,7 @@ export function Hero() {
           </Reveal>
         </div>
 
-        <MaskedLines
+        <TextReveal
           as="h1"
           id="hero-heading"
           className="display mt-10 max-w-[14ch]"
@@ -77,12 +77,10 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={120} as="figure" className="lg:col-span-7">
-            <MediaFrame
+            <AspectFrame
               src="/img/alex-adekunle-agbada.jpg"
               alt="Alex Adekunle, founder of Vavinix, in black and gold agbada"
-              width={895}
-              height={1200}
-              aspect="aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5]"
+              ratio="4/5"
               muted={false}
               priority
               parallax={false}

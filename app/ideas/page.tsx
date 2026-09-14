@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { JsonLd } from "@/components/json-ld";
 import { EditorialHero } from "@/components/sections/editorial-hero";
 import { TopicRows } from "@/components/sections/topic-rows";
-import { MaskedLines } from "@/components/motion/masked-lines";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Section } from "@/components/ui/section";
 import { IDEAS_TOPICS } from "@/lib/content/editorial";
@@ -31,7 +31,7 @@ export default function IdeasPage() {
 
       <Section className="!py-20 sm:!py-28">
         <TopicRows rows={IDEAS_TOPICS} />
-        <MaskedLines className="display-sm mt-20 max-w-[14ch]" lines={[SITE.tagline]} />
+        <TextReveal className="display-sm mt-20 max-w-[14ch]" lines={[SITE.tagline]} />
         <div className="mt-10 flex flex-wrap gap-4">
           <ButtonLink href="/journal" variant="ghost">Read the journal</ButtonLink>
           <ButtonLink href="/the-eagle" magnetic>Enter The Eagle</ButtonLink>

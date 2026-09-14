@@ -27,6 +27,8 @@ const nextConfig: NextConfig = {
     imageSizes: [240, 320],
     formats: ["image/webp"],
   },
+  // The custom image loader runs in the browser and must know the deploy prefix.
+  env: { NEXT_PUBLIC_BASE_PATH: basePath },
   reactStrictMode: true,
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
