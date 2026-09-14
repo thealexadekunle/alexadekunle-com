@@ -8,8 +8,17 @@ import type { NextConfig } from "next";
  * width variants already produced by the asset pipeline, so `next/image` still
  * emits a real srcset without a server-side optimiser.
  */
+/**
+ * GitHub Pages serves this repo at /alexadekunle-com until the custom domain is
+ * live, so asset URLs need that prefix. Set PAGES_BASE_PATH="" (or drop it) for
+ * a root deploy on alexadekunle.com and every path resolves from the root again.
+ */
+const basePath = process.env["PAGES_BASE_PATH"] ?? "";
+
 const nextConfig: NextConfig = {
   output: "export",
+  basePath,
+  assetPrefix: basePath || undefined,
   trailingSlash: true,
   images: {
     loader: "custom",

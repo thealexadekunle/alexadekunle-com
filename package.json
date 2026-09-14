@@ -10,7 +10,8 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "export:pages": "next build && touch out/.nojekyll",
-    "deploy": "next build && rm -rf docs && cp -r out docs && touch docs/.nojekyll"
+    "deploy": "PAGES_BASE_PATH=/alexadekunle-com next build && rm -rf docs && cp -r out docs && touch docs/.nojekyll",
+    "deploy:root": "next build && rm -rf docs && cp -r out docs && touch docs/.nojekyll"
   },
   "dependencies": {
     "lenis": "1.1.20",
