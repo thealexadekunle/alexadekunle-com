@@ -35,7 +35,12 @@ export const metadata: Metadata = {
   authors: [{ name: SITE.legalName }],
   creator: SITE.legalName,
   icons: {
-    icon: withBasePath("/img/favicon-eagle.png"),
+    // SVG first for anything modern; the PNG stays as the raster fallback and
+    // as the Apple touch icon, which does not accept SVG.
+    icon: [
+      { url: withBasePath("/img/favicon-eagle.svg"), type: "image/svg+xml" },
+      { url: withBasePath("/img/favicon-eagle.png"), type: "image/png" },
+    ],
     apple: withBasePath("/img/favicon-eagle.png"),
   },
   robots: { index: true, follow: true, "max-image-preview": "large" },

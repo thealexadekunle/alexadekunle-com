@@ -72,7 +72,7 @@ export function SiteHeader() {
         <div className="mx-auto flex max-w-8xl items-center justify-between gap-6 px-5 py-4 sm:px-8 lg:px-10">
           <Link href="/" className="group inline-flex items-center" aria-label="Alex Adekunle, home">
             <Image
-              src="/img/logo.svg"
+              src="/img/adekunlealex.svg"
               alt=""
               aria-hidden="true"
               width={298}

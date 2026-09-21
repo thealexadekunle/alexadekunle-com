@@ -31,7 +31,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-8xl px-5 py-16 sm:px-8 lg:px-10">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <Image src="/img/logo.svg" alt={SITE.name} width={298} height={92} className="h-[42px] w-auto" />
+            <Image src="/img/adekunlealex.svg" alt={SITE.name} width={298} height={92} className="h-[42px] w-auto" />
             <p className="label-lg mt-3">Technology · Business · Ventures · Ideas</p>
             <p className="mt-6 max-w-xs text-[15px] leading-relaxed text-zinc-500">{SITE.tagline}</p>
             <NewsletterForm />
