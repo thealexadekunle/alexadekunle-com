@@ -11,17 +11,32 @@ import { pageSchema } from "@/lib/schema";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact Alex Adekunle | Partnerships, Speaking and Media",
+  title: "Contact Alex Adekunle | Partnerships, Speaking and Press",
   description:
-    "Get in touch with Alex Adekunle, founder of Vavinix, for partnerships, speaking, media enquiries and project conversations.",
+    "Get in touch with Alex Adekunle, founder of Vavinix, about partnerships, speaking, press and project conversations.",
   alternates: { canonical: "/contact" },
 };
 
 const ROUTES = [
-  { index: "01", title: "Partnerships", body: "A venture, an opportunity, a collaboration worth exploring? Let us talk.", meta: "Direct" },
-  { index: "02", title: "Speaking", body: "Conferences, events, workshops, podcasts, interviews.", meta: "Worldwide" },
-  { index: "03", title: "Media", body: "Features, interviews, press, content collaborations.", meta: "Press kit" },
-  { index: "04", title: "General", body: "If none of those fit, send it anyway. The categories are for routing, not for gatekeeping.", meta: "Open", accent: true },
+  {
+    index: "01",
+    title: "Projects",
+    body: "Tell me what you are trying to achieve, not what you think needs building. Those two are almost never the same sentence. Project work runs through Vavinix.",
+    meta: "Via Vavinix",
+  },
+  {
+    index: "02",
+    title: "Partnerships, speaking and press",
+    body: "A venture worth exploring, an event, an interview. Pick the closest option in the form.",
+    meta: "Direct",
+  },
+  {
+    index: "03",
+    title: "Anything else",
+    body: "If none of those fit, send it anyway. The options are for sorting, not for keeping people out.",
+    meta: "Open",
+    accent: true,
+  },
 ] as const;
 
 export default function ContactPage() {
@@ -59,15 +74,13 @@ export default function ContactPage() {
             <h2 className="label">Routing</h2>
 
             <Reveal>
-              <h3 className="mt-8 text-2xl font-medium tracking-editorial">Work with me</h3>
-              <p className="prose-body mt-4">
-                Building a business, product, website, software or digital experience? Tell me what
-                you are trying to achieve rather than what you think you need built. Those two are
-                almost never the same sentence, and the gap between them is where the useful part of
-                the conversation happens.
+              <p className="lede mt-8">
+                Building a business, a product, a website or a system? The gap between what someone
+                asks for and what they are trying to achieve is where the useful conversation
+                happens.
               </p>
               <p className="prose-body mt-4">
-                Project enquiries go through{" "}
+                Project work runs through{" "}
                 <a className="text-ink underline underline-offset-4 hover:text-accent" href="https://vavinix.com" rel="noopener">
                   Vavinix
                 </a>

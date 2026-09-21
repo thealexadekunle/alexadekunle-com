@@ -29,11 +29,8 @@ export const SOCIALS = [
   { label: "TikTok", href: `https://www.tiktok.com/@${SITE.handle}` },
 ] as const;
 
-export const SAME_AS: string[] = [
-  ...SOCIALS.map((s) => s.href),
-  "https://vavinix.com",
-  "https://techbehemoths.com/company/vavinix-ltd",
-];
+/** Only profiles he controls and that are live: one dead link weakens the list. */
+export const SAME_AS: string[] = [...SOCIALS.map((s) => s.href), "https://vavinix.com"];
 
 /** The standard bio, used verbatim everywhere it appears. */
 export const BIO = {
@@ -41,7 +38,7 @@ export const BIO = {
     "Technology entrepreneur and web developer. Founder of Vavinix. Building Aspire Trybe, OneArtPiece and The Receipt. Think better. Build better. Lead better.",
   medium:
     "Founder of Vavinix | Technology Entrepreneur, Web Developer and Business Strategist | Building Aspire Trybe, OneArtPiece and The Receipt",
-  long: "Alex Akinyele Adekunle is a Nigerian technology entrepreneur, web developer and business strategist. He founded Vavinix in 2021, a web design and digital branding company working with clients across the United States, the United Kingdom, Spain and Nigeria. He is also building Aspire Trybe, a movement for African tech talent, OneArtPiece, a marketplace for verified physical artwork, and The Receipt, a civic accountability platform auditing Nigeria’s thirty six state governors against their manifestos. He has been building on the web since 2011 and holds a BSc in Mathematics from the Federal University of Agriculture, Abeokuta.",
+  long: "Alex Akinyele Adekunle is a Nigerian technology entrepreneur, web developer and business strategist. He founded Vavinix in 2021, a web design and digital branding company working with clients across the United States, the United Kingdom, Spain and Nigeria. He is also building Aspire Trybe, a movement for African tech talent, OneArtPiece, a marketplace for verified physical artwork, and The Receipt, a civic platform auditing Nigeria’s thirty six state governors against their manifestos. He has been building on the web since 2011 and holds a BSc in Mathematics from the Federal University of Agriculture, Abeokuta.",
 } as const;
 
 /**

@@ -34,13 +34,13 @@ export default function VenturesPage() {
             as="h1"
             id="ventures-heading"
             className="display mt-10 max-w-[14ch]"
-            lines={["I do not just", "work on ideas.", "<em>I build them.</em>"]}
+            lines={["I do not just", "have ideas.", "<em>I build them.</em>"]}
           />
 
           <Reveal>
             <p className="lede mt-10 max-w-2xl">
-              Some turn into companies. Some turn into products. Some stay experiments and teach me
-              something anyway. All four of these started as a problem I could not stop turning over.
+              Four ventures, four different problems. Each one started as something I could not stop
+              turning over.
             </p>
           </Reveal>
         </Container>
@@ -91,23 +91,22 @@ export default function VenturesPage() {
       <Section tone="raised" bordered labelledBy="bigger-heading">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
-            <p className="label">The bigger picture</p>
+            <p className="label">The thread</p>
           </div>
           <div className="lg:col-span-7 lg:col-start-6">
             <TextReveal
               id="bigger-heading"
               className="display-sm max-w-[16ch]"
-              lines={["I do not want the things", "I build to look the same."]}
+              lines={["Different sectors,", "same shape."]}
             />
             <Reveal>
               <p className="prose-body mt-8">
-                That would suggest I am solving the same problem repeatedly and calling it range.
+                How businesses show up online. How young people get access. How artists get paid. How
+              citizens hold power to account.
               </p>
               <p className="prose-body mt-5">
-                Four ventures, four different failures: how businesses show up online, how young
-                people get access, how artists get paid, how citizens hold power to account. The
-                through line is not the sector. It is that each one is a system quietly failing
-                somebody, and systems are built things, which means they can be rebuilt.
+                Different sectors, same shape: a system quietly failing somebody. Systems are built
+                things, which means they can be rebuilt.
               </p>
               <div className="mt-12 flex flex-wrap gap-4">
                 <ButtonLink href="/contact" magnetic>Follow what I am building</ButtonLink>

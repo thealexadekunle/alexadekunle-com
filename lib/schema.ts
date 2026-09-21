@@ -47,7 +47,6 @@ export const personSchema = {
     "Technology entrepreneurship",
     "Business strategy",
     "AI automation",
-    "Web3",
     "Youth empowerment in Africa",
   ],
   knowsLanguage: ["English", "Yoruba"],

@@ -34,14 +34,14 @@ export const VENTURE_DETAIL: Record<string, VentureDetail> = {
       {
         heading: "What it is",
         paragraphs: [
-          "The company I founded in 2021. Vavinix builds websites, digital brands and working systems for businesses across the United States, the United Kingdom, Spain and Nigeria.",
-          "Design and development, digital branding, SEO and AI search optimisation, and care plans for the sites we build, because a website is not a delivery, it is a thing that has to survive contact with a business that keeps changing. Behind it sits a team covering creative, design, project management, growth and client support.",
+          "The company I founded in 2021. Vavinix builds websites, brands and working digital systems for businesses in the United States, the United Kingdom, Spain and Nigeria, with a team covering creative, design, project management, growth and client support.",
+          "Design and development, branding, SEO and AI search, and care plans that keep a site healthy after launch. A website is not a delivery. It has to survive a business that keeps changing.",
         ],
       },
       {
-        heading: "How I work in it",
+        heading: "My role",
         paragraphs: [
-          "Founder and lead, which in practice means close to the work rather than above it. Positioning and strategy on every project, and hands in the build far more often than a founder probably should have. It is the part of the job I would keep if someone made me give up the rest.",
+          "Founder and lead. Close to the work, not above it. Strategy on every project, and hands in the build more often than a founder probably should.",
         ],
       },
     ],
@@ -49,23 +49,22 @@ export const VENTURE_DETAIL: Record<string, VentureDetail> = {
       {
         heading: "Why it exists",
         paragraphs: [
-          "Most businesses get sold one of two things. A cheap website that looks perfectly fine and does nothing, or an expensive rebuild that solves a problem they did not have.",
-          "Both fail for the same reason, and it is not budget. It is that the conversation opened with the deliverable instead of the objective.",
-          "Ask a business what it wants and you get a list of pages. Ask what it is trying to achieve and who has to be convinced and what is currently getting in the way, and you usually find the website was the third most important thing on the list.",
+          "Ask a business what it wants and you get a list of pages.",
+          "Ask what it is trying to achieve, who has to be convinced and what is in the way, and the website usually turns out to be the third most important thing on the list.",
+          "Most agencies start with the list. Vavinix starts with the second question.",
         ],
       },
     ],
-    pullQuote:
-      "Vavinix was built to start at that end. The website is the answer. It should not also be the question.",
+    pullQuote: "The website is the answer, not the brief.",
     rowsHeading: null,
     rows: [],
-    cta: { label: "See the full portfolio at vavinix.com ↗", href: "https://vavinix.com" },
+    cta: { label: "See the portfolio and start a project at vavinix.com ↗", href: "https://vavinix.com" },
   },
 
   "aspire-trybe": {
     title: "Aspire Trybe | The African Tech Talent Movement by Alex Adekunle",
     description:
-      "Aspire Trybe is a youth movement building the largest community of African tech talent. Digital skills, entrepreneurship and opportunity for ages 17 to 30.",
+      "Aspire Trybe is a movement building the largest community of African tech talent. Skills, enterprise and opportunity for ages 17 to 30.",
     hero: {
       src: "/img/workshop-space.jpg",
       alt: "A learning space before a workshop begins: light wood tables, closed laptops, tall windows",
@@ -80,14 +79,14 @@ export const VENTURE_DETAIL: Record<string, VentureDetail> = {
       {
         heading: "What it is",
         paragraphs: [
-          "A youth movement for people aged 17 to 30, built around four things: digital skills, entrepreneurship, leadership and access to real opportunity.",
-          "Not a course. Not a mentorship programme with a certificate at the end. A community with a route through it, where someone arrives with an interest and leaves with a skill, a network, and a way to earn from both.",
+          "A movement for people aged 17 to 30, built on four things: digital skills, entrepreneurship, leadership and access to real opportunity.",
+          "Not a course with a certificate at the end. A community with a route through it. You arrive with an interest and leave with a skill, a network, and a way to earn from both.",
         ],
       },
       {
-        heading: "What it does",
+        heading: "Where the money goes",
         paragraphs: [
-          "Digital skills, taught to the standard the market pays for rather than the standard a certificate requires. Entrepreneurship treated as a practice rather than a posture. Leadership meaning responsibility, not volume. And opportunity, which mostly means connecting people who can do the work to the people who need it done, then getting out of the way.",
+          "Programme delivery, training materials and the cost of running cohorts. Ask me exactly where, and I will tell you exactly where.",
         ],
       },
     ],
@@ -95,13 +94,12 @@ export const VENTURE_DETAIL: Record<string, VentureDetail> = {
       {
         heading: "Why it exists",
         paragraphs: [
-          "Africa does not have a talent problem. It has never had a talent problem, and anyone who has actually hired here knows it within about a week.",
-          "What it has is an access problem. Access to training that is current rather than four years behind the market. Access to the rooms where opportunities get mentioned before they get advertised. Access to the first paid piece of work, which is the one that makes the second one possible and which nobody hands to someone with an empty profile. Access to capital, for anyone who wants to build rather than be employed.",
+          "Africa does not have a talent problem. Anyone who has hired here knows that within a week.",
+          "It has an access problem. Access to training that is current, not four years behind. Access to the rooms where opportunities are mentioned before they are advertised. Access to the first paid job, the one that makes the second possible and that nobody gives to someone with an empty profile.",
         ],
       },
     ],
-    pullQuote:
-      "You cannot fix an access problem with motivation, and a great deal of what gets aimed at young Africans is motivation. Systems fix access problems.",
+    pullQuote: "Motivation does not fix access. Systems do. That is the whole idea.",
     rowsHeading: "Support the work",
     rows: [
       {
@@ -114,13 +112,13 @@ export const VENTURE_DETAIL: Record<string, VentureDetail> = {
       {
         index: "02",
         title: "Mentor someone",
-        body: "Time, judgement, and the introductions that move someone forward.",
+        body: "Walk one person through a cohort. Time, judgement, and the introductions that move them forward.",
         meta: "Time",
       },
       {
         index: "03",
         title: "Hire from it",
-        body: "Costs you nothing and changes the most. The first paid piece of work makes the second possible.",
+        body: "Costs you nothing and changes the most. The first paid job is the one that makes the second possible.",
         meta: "Free",
       },
     ],
@@ -140,7 +138,7 @@ export const VENTURE_DETAIL: Record<string, VentureDetail> = {
       {
         heading: "What it is",
         paragraphs: [
-          "A marketplace for original physical artwork where every piece carries a blockchain certificate of authenticity. Provenance is verifiable. Ownership history is traceable. And resale royalties follow the artist instead of ending at the first sale.",
+          "A marketplace for original physical artwork. Every piece carries a blockchain certificate of authenticity, so its origin and ownership history can be checked, and resale royalties follow the artist rather than stopping at the first sale.",
         ],
       },
     ],
@@ -148,32 +146,32 @@ export const VENTURE_DETAIL: Record<string, VentureDetail> = {
       {
         heading: "Why it exists",
         paragraphs: [
-          "A painting can triple in price across three resales while the person who made it sees nothing past the first cheque. Everyone in the art world knows this and it has been true for a very long time.",
-          "It sounds like an injustice, and it is, but underneath it is something more boring and much more fixable: a record-keeping problem. Nobody can reliably prove what a piece is, who made it, who has owned it, and what it changed hands for. Without that record there is no mechanism to route anything back to the artist, and no confidence for the buyer either. The paper certificate, which is the current answer, is a document in somebody’s drawer hoping to survive forty years and a house move.",
-          "Record-keeping is the one thing this technology is genuinely good at. Not speculation. Not digital collectibles. Not a token bolted onto a JPEG. A durable public record attached to a real object, which is what makes both authenticity and royalties enforceable rather than aspirational.",
+          "A painting can triple in value across three resales while the person who painted it sees nothing after the first cheque.",
+          "It looks like an injustice, and it is, but underneath is a duller, fixable problem: record-keeping. Nobody can reliably prove what a piece is, who made it and who has owned it. The current answer is a paper certificate in a drawer, hoping to survive forty years and a house move.",
+          "Keeping a durable public record is the one thing this technology is genuinely good at. Not speculation. Not a token bolted to a JPEG. A permanent record attached to a real object, which is what makes authenticity provable and royalties enforceable.",
         ],
       },
     ],
     pullQuote: null,
-    rowsHeading: "What it does",
+    rowsHeading: "Who it is for",
     rows: [
       {
         index: "01",
-        title: "For artists",
-        body: "A verifiable certificate for each piece, and a royalty that applies every time it sells, not once.",
+        title: "Artists",
+        body: "A verifiable certificate for every piece, and a royalty on every sale, not just the first.",
         meta: "Royalties",
         accent: true,
       },
       {
         index: "02",
-        title: "For buyers",
-        body: "Proof that a piece is what the seller says it is, and the full history of where it has been.",
+        title: "Buyers",
+        body: "Proof that a piece is what the seller says it is, with its full history.",
         meta: "Provenance",
       },
       {
         index: "03",
-        title: "For the market",
-        body: "A provenance record that does not depend on a piece of paper surviving four decades in a drawer.",
+        title: "The market",
+        body: "Provenance that does not depend on paper.",
         meta: "Record",
       },
     ],
@@ -198,15 +196,15 @@ export const VENTURE_DETAIL: Record<string, VentureDetail> = {
       {
         heading: "What it is",
         paragraphs: [
-          "An audit of all thirty six Nigerian state governors against the manifestos they campaigned on. Promises made, promises tracked, evidence attached, kept current.",
+          "Every one of Nigeria’s thirty six state governors, tracked against the manifesto they campaigned on. Each promise has a status and a source you can click.",
           "Built under Vavinix.",
         ],
       },
       {
-        heading: "How it works",
+        heading: "How it stays useful",
         paragraphs: [
-          "Every governor, every manifesto commitment, each with a status and a source you can click. No editorialising and no scoring anyone into a political corner.",
-          "That restraint is not neutrality for its own sake. The entire value of the thing is that it is checkable, and the moment it reads as partisan it becomes just another opinion with better design, useful to nobody it was built for.",
+          "No commentary and no scoring anyone into a corner.",
+          "The whole value is that it can be checked, and the moment it reads as partisan it becomes one more opinion with better design.",
         ],
       },
     ],
@@ -214,13 +212,13 @@ export const VENTURE_DETAIL: Record<string, VentureDetail> = {
       {
         heading: "Why it exists",
         paragraphs: [
-          "Accountability here does not usually fail for dramatic reasons. It fails for an ordinary one: the record goes missing.",
-          "A manifesto gets published. It is quoted for about a week. Then it effectively disappears, and three years later nobody can produce what was actually promised, so the argument stops being about evidence and becomes about memory and allegiance, which is an argument nobody wins and everybody enjoys having.",
+          "Accountability here rarely fails for dramatic reasons. It fails because the record goes missing.",
+          "A manifesto is published, quoted for a week, then forgotten. Three years later nobody can produce what was promised, so the argument is about memory and loyalty instead of evidence. Everyone enjoys that argument. Nobody wins it.",
         ],
       },
     ],
     pullQuote:
-      "Put the record in one place. Keep it current. Attach the source. The conversation changes, not because anyone has been persuaded, but because there is now a document on the table.",
+      "Put the record in one place, keep it current, attach the source. The conversation changes, not because anyone was persuaded, but because there is now a document on the table.",
     rowsHeading: null,
     rows: [],
     cta: { label: "Visit The Receipt", href: "/contact" },

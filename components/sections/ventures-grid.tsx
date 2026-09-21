@@ -25,14 +25,8 @@ export function VenturesGrid() {
             <TextReveal
               id="featured-heading"
               className="display-sm max-w-[16ch]"
-              lines={["I do not just work on", "ideas. I build them."]}
+              lines={["I do not just have", "ideas. I build them."]}
             />
-            <Reveal delay={80}>
-              <p className="prose-body mt-6 max-w-2xl">
-                Some turn into companies. Some turn into products. Some stay experiments and teach me
-                something anyway. All four of these started as a problem I could not stop turning over.
-              </p>
-            </Reveal>
           </div>
         </header>
 
@@ -69,7 +63,7 @@ export function VenturesGrid() {
                 </div>
 
                 <h3 className="tile-title">{venture.name}</h3>
-                <p className="prose-body mt-4 max-w-xl">{venture.summary}</p>
+                <p className="prose-body mt-4 max-w-xl">{venture.homeSummary}</p>
 
                 <div className="mt-[18px] flex flex-wrap gap-2">
                   {venture.tags.map((tag) => (
@@ -87,8 +81,7 @@ export function VenturesGrid() {
 
         <div className="mt-16 flex flex-wrap items-end justify-between gap-6 border-t border-paper-200 pt-8">
           <p className="prose-body max-w-lg">
-            More is coming. Some of it has names. Some is still a sketch. I would rather build than
-            announce.
+            Four ventures, four different problems. Each has a page of its own.
           </p>
           <Link className="link-arrow" href="/ventures">
             Explore the ventures <i aria-hidden="true">→</i>

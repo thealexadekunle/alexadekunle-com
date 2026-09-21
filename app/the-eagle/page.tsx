@@ -33,7 +33,7 @@ export default function EaglePage() {
 
           <Reveal>
             <p className="lede mt-10 max-w-2xl">
-              Seven principles. Not a poster. A working philosophy I keep having to reread.
+              Seven principles. Not a poster. A working philosophy I have to reread more often than I would like.
             </p>
           </Reveal>
 
@@ -79,20 +79,20 @@ export default function EaglePage() {
           <div className="lg:col-span-6 lg:col-start-7">
             <Reveal>
               <p className="prose-body">
-                It rises above the noise, sees further than the thing directly in front of it, and
-                moves deliberately rather than in a panic. Most bad decisions I have made were made at
-                ground level, quickly, with something urgent shouting in my ear.
+                Perspective. It sees further than the thing right in front of it and moves on purpose
+                instead of in a panic.
               </p>
               <p className="prose-body mt-5">
-                That is the mindset I try to carry into business, technology, leadership and life. Try
-                being the operative word.
+                Most of my bad decisions were made at ground level, fast, with something urgent
+                shouting in my ear. The eagle is the reminder to climb before choosing. I manage it
+                more often than I used to.
               </p>
             </Reveal>
 
             <h3 className="label mt-14">Eagle Lessons</h3>
             <Reveal>
               <p className="lede mt-6">
-                Every Eagle Lesson is a reminder that growth is built out of repeated choices.
+                Short lessons on these principles, published under Writing.
               </p>
               <p className="prose-body mt-5">Not motivation for a day. A philosophy for the long game.</p>
             </Reveal>
@@ -100,7 +100,7 @@ export default function EaglePage() {
             <TextReveal className="display-sm mt-16 max-w-[14ch]" lines={[SITE.tagline]} />
 
             <div className="mt-12 flex flex-wrap gap-4">
-              <ButtonLink href="/ideas" variant="ghost">Read the ideas</ButtonLink>
+              <ButtonLink href="/writing" variant="ghost">Read the writing</ButtonLink>
               <ButtonLink href="/contact" magnetic>Start a conversation</ButtonLink>
             </div>
           </div>

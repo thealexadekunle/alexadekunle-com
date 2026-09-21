@@ -1,6 +1,6 @@
 User-Agent: *
 Allow: /
-Disallow: /_next/static/chunks/
+Disallow: /api/
 
 Host: https://alexadekunle.com
 Sitemap: https://alexadekunle.com/sitemap.xml

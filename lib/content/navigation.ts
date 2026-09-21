@@ -5,26 +5,23 @@ export type NavItem = {
   readonly external?: boolean;
 };
 
-/** Primary navigation. Eight items is the ceiling before a nav reads as a sitemap. */
+/** Seven top-level pages. Ventures opens a dropdown to its four children. */
 export const PRIMARY_NAV: readonly NavItem[] = [
   { label: "About", href: "/about" },
   { label: "Ventures", href: "/ventures" },
-  { label: "Services", href: "/services" },
+  { label: "Writing", href: "/writing" },
   { label: "The Eagle", href: "/the-eagle" },
   { label: "Speaking", href: "/speaking" },
 ];
 
 export const FOOTER_EXPLORE: readonly NavItem[] = [
   { label: "About", href: "/about" },
-  { label: "Portfolio", href: "https://vavinix.com", external: true },
   { label: "Ventures", href: "/ventures" },
-  { label: "Services", href: "/services" },
-  { label: "Ideas", href: "/ideas" },
-  { label: "Journal", href: "/journal" },
+  { label: "Writing", href: "/writing" },
   { label: "The Eagle", href: "/the-eagle" },
   { label: "Speaking", href: "/speaking" },
-  { label: "Lifestyle", href: "/about#lifestyle" },
-  { label: "Gallery", href: "/gallery" },
+  { label: "Contact", href: "/contact" },
+  { label: "Portfolio", href: "https://vavinix.com", external: true },
 ];
 
 export const FOOTER_VENTURES: readonly NavItem[] = [
@@ -34,9 +31,7 @@ export const FOOTER_VENTURES: readonly NavItem[] = [
   { label: "The Receipt", href: "/ventures/the-receipt" },
 ];
 
+/** Press kit lives on Speaking now, so Connect points at it there. */
 export const FOOTER_CONNECT: readonly NavItem[] = [
-  { label: "Media", href: "/media" },
-  { label: "Resources", href: "/resources" },
-  { label: "Contact", href: "/contact" },
-  { label: "Press kit", href: "/media#press-kit" },
+  { label: "Press kit", href: "/speaking#press-kit" },
 ];

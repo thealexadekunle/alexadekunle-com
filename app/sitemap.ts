@@ -6,9 +6,11 @@ import { VENTURES } from "@/lib/content/ventures";
 import { SITE } from "@/lib/site";
 
 /**
- * Indexable URLs only. Ideas, Journal, Media and Resources ship `noindex,
- * follow` until each holds three real items, and a sitemap that lists noindex
- * URLs sends contradictory instructions.
+ * Ten URLs at launch, every one indexable and none of them thin.
+ *
+ * /writing is deliberately absent: it ships `noindex, follow` until three
+ * pieces exist, and a sitemap listing a noindex URL sends contradictory
+ * instructions. Add it here the day it flips.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -23,9 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     { url: `${SITE.url}/the-eagle`, priority: 0.8, lastModified: now },
     { url: `${SITE.url}/contact`, priority: 0.8, lastModified: now },
-    { url: `${SITE.url}/services`, priority: 0.7, lastModified: now },
     { url: `${SITE.url}/speaking`, priority: 0.7, lastModified: now },
-    { url: `${SITE.url}/gallery`, priority: 0.5, lastModified: now },
   ];
   return entries;
 }

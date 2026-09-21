@@ -1,33 +1,27 @@
 import Link from "next/link";
-import { TextReveal } from "@/components/ui/text-reveal";
 import { Reveal } from "@/components/motion/reveal";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { Section } from "@/components/ui/section";
+import { TextReveal } from "@/components/ui/text-reveal";
+import { CLOSING } from "@/lib/content/home";
 import { SITE } from "@/lib/site";
 
 const ROUTES = [
   { label: "Email", value: SITE.email, href: `mailto:${SITE.email}` },
   { label: "Projects", value: "vavinix.com ↗", href: "https://vavinix.com" },
-  { label: "Speaking", value: "Invite me to speak", href: "/speaking" },
+  { label: "Speaking", value: "Book a talk", href: "/speaking" },
 ] as const;
 
 export function ContactBanner() {
   return (
     <Section tone="ink" bordered labelledBy="cta-heading" className="grain relative">
-      <p className="label text-zinc-400">04 — What is next</p>
+      <p className="label text-zinc-400">05 — What is next</p>
 
-      <TextReveal
-        id="cta-heading"
-        className="display mt-8 max-w-[13ch] text-paper"
-        lines={["Let us build", "something that", "<em>matters.</em>"]}
-      />
+      <TextReveal id="cta-heading" className="display mt-8 max-w-[13ch] text-paper" lines={[...CLOSING.lines]} />
 
       <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-10">
         <Reveal className="lg:col-span-6">
-          <p className="lede max-w-xl !text-paper-200">
-            Have an idea? Building a business? Looking for someone who will push back on the brief
-            before agreeing to it? Start a conversation.
-          </p>
+          <p className="lede max-w-xl !text-paper-200">{CLOSING.body}</p>
         </Reveal>
 
         <div className="lg:col-span-5 lg:col-start-8">
@@ -52,7 +46,7 @@ export function ContactBanner() {
           </ul>
           <MagneticButton asChild className="btn-lg mt-10 border-paper text-paper">
             <Link href="/contact">
-              <span>Tell me what you are building</span>
+              <span>Start a conversation</span>
             </Link>
           </MagneticButton>
         </div>

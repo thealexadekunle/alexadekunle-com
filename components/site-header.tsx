@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { PRIMARY_NAV } from "@/lib/content/navigation";
+import { FOOTER_VENTURES, PRIMARY_NAV } from "@/lib/content/navigation";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { useMotion } from "@/lib/motion/motion-provider";
 import { subscribeScroll } from "@/lib/motion/scroll-store";
@@ -84,22 +84,47 @@ export function SiteHeader() {
           </Link>
 
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
-            {PRIMARY_NAV.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={isActive(item.href) ? "page" : undefined}
-                className="group relative text-[13px] text-ink-900 transition-colors hover:text-ink aria-[current=page]:font-medium aria-[current=page]:text-ink"
-              >
-                {item.label}
-                <span
-                  aria-hidden="true"
-                  className={`absolute -bottom-[7px] left-0 h-px bg-accent transition-all duration-500 ease-editorial ${
-                    isActive(item.href) ? "w-full bg-ink" : "w-0 group-hover:w-full"
-                  }`}
-                />
-              </Link>
-            ))}
+            {PRIMARY_NAV.map((item) => {
+              const hasChildren = item.href === "/ventures";
+              return (
+                <div key={item.href} className="group/nav relative">
+                  <Link
+                    href={item.href}
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                    className="group relative inline-flex items-center gap-1.5 text-[13px] text-ink-900 transition-colors hover:text-ink aria-[current=page]:font-medium aria-[current=page]:text-ink"
+                  >
+                    {item.label}
+                    {hasChildren ? (
+                      <span aria-hidden="true" className="text-[8px] text-zinc-400">▾</span>
+                    ) : null}
+                    <span
+                      aria-hidden="true"
+                      className={`absolute -bottom-[7px] left-0 h-px bg-accent transition-all duration-500 ease-editorial ${
+                        isActive(item.href) ? "w-full bg-ink" : "w-0 group-hover:w-full"
+                      }`}
+                    />
+                  </Link>
+
+                  {/* Four links to the strongest identity pages, on every page */}
+                  {hasChildren ? (
+                    <div className="invisible absolute left-0 top-full z-10 pt-5 opacity-0 transition-all duration-300 ease-editorial group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100">
+                      <ul className="min-w-[13rem] border border-line-strong bg-paper/95 p-2 backdrop-blur-xl">
+                        {FOOTER_VENTURES.map((child) => (
+                          <li key={child.href}>
+                            <Link
+                              href={child.href}
+                              className="block px-3 py-2.5 text-[13px] text-zinc-500 transition-colors hover:bg-paper-50 hover:text-ink"
+                            >
+                              {child.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-3">
@@ -145,20 +170,35 @@ export function SiteHeader() {
             className="flex max-h-[calc(100dvh-72px)] flex-col overflow-y-auto px-gutter pb-[calc(40px+env(safe-area-inset-bottom))] pt-6"
           >
             {[...PRIMARY_NAV, { label: "Contact", href: "/contact" }].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={isActive(item.href) ? "page" : undefined}
-                className="flex min-h-[var(--touch)] items-center justify-between border-b border-line-strong py-5 text-[clamp(1.35rem,6vw,1.75rem)] tracking-editorial"
-              >
-                <span>{item.label}</span>
-                <span
-                  aria-hidden="true"
-                  className={`h-1.5 w-1.5 rounded-full ${
-                    isActive(item.href) ? "bg-accent" : "bg-line"
-                  }`}
-                />
-              </Link>
+              <div key={item.href}>
+                <Link
+                  href={item.href}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  className="flex min-h-[var(--touch)] items-center justify-between border-b border-line-strong py-5 text-[clamp(1.35rem,6vw,1.75rem)] tracking-editorial"
+                >
+                  <span>{item.label}</span>
+                  <span
+                    aria-hidden="true"
+                    className={`h-1.5 w-1.5 rounded-full ${
+                      isActive(item.href) ? "bg-accent" : "bg-line"
+                    }`}
+                  />
+                </Link>
+                {item.href === "/ventures" ? (
+                  <ul className="border-b border-line-strong py-2">
+                    {FOOTER_VENTURES.map((child) => (
+                      <li key={child.href}>
+                        <Link
+                          href={child.href}
+                          className="flex min-h-[var(--touch)] items-center pl-4 text-[15px] text-zinc-500"
+                        >
+                          {child.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
             ))}
             <Link href="/contact" className="btn btn-fill mt-8">
               <span>Start a conversation</span>
